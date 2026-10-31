@@ -326,8 +326,15 @@ test('seed: two groups with their own flights, 21 prepared accounts, group lines
   ]);
   // the two free texts are also in Arabic (shown when the app is in Arabic); group 2's note says it lands at another airport
   eq(groups.map((g) => [g.meet_place_ar.length > 0, g.note_ar.length > 0]), [[true, false], [true, true]]);
-  const roster = (await pg.query('select group_id, count(*)::int n from public.roster group by group_id order by group_id')).rows;
+  const roster = (await pg.query("select group_id, count(*)::int n from public.roster where role = 'consultant' group by group_id order by group_id")).rows;
   eq(roster, [{ group_id: 1, n: 14 }, { group_id: 2, n: 7 }]);
+  // the team is in the list too (taken with the staff code): Zineddine flies with group 2, the others with group 1
+  eq((await pg.query("select full_name, group_id from public.roster where role = 'staff' order by full_name")).rows, [
+    { full_name: 'Hichem', group_id: 1 },
+    { full_name: 'Samy', group_id: 1 },
+    { full_name: 'Yazid', group_id: 1 },
+    { full_name: 'Zineddine', group_id: 2 },
+  ]);
   eq((await pg.query('select count(*)::int n from public.roster where profile_uid is not null')).rows[0].n, 0);
 
   // the programme and the group sheet say the same thing, for each group
@@ -364,7 +371,7 @@ test('seed: run again, it upgrades untouched programme days but never what the s
   eq((await items('2026-11-05')).length, 9, 'the untouched day gets the new programme');
   eq((await items('2026-11-06')).map((i) => i.title), ['Ajouté par le staff'], 'a staff edit was overwritten');
   eq(await items('2026-11-08'), [], 'an emptied day was refilled');
-  eq((await pg.query('select count(*)::int n from public.roster')).rows[0].n, 21, 'the roster doubled');
+  eq((await pg.query('select count(*)::int n from public.roster')).rows[0].n, 25, 'the roster doubled (21 participants + 4 staff)');
 
   // a project that got an older seed (one 23 kg bag for group 1) is corrected by running the seed again...
   const bags = async () => (await pg.query('select bag_hold_kg, bag_hold_count from public.trip_groups where id = 1')).rows[0];
@@ -421,7 +428,9 @@ test('roster_choices: a visitor sees the free names only with a valid code', asy
   eq(free.map((x) => x.name), free.map((x) => x.name).slice().sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)).filter(Boolean), 'sorted by name');
   eq(await choices(pg, null, 'wrong'), [], 'a wrong code sees nothing');
   eq(await choices(pg, null, ''), [], 'no code sees nothing');
-  eq(await choices(pg, null, codes.staff_code), [], 'the staff code opens the staff names (none here)');
+  // the staff code opens the staff names only (never a participant's), each with their group
+  const team = await choices(pg, null, codes.staff_code);
+  eq(team.map((x) => [x.name, x.group]), [['Hichem', 1], ['Samy', 1], ['Yazid', 1], ['Zineddine', 2]]);
   // taken names disappear from the list
   await signUp(pg, { email: 'k@uc.test', code: codes.invite_code, rosterId: await nameId(pg, 'Khentit Khaoula') });
   const left = await choices(pg, null, codes.invite_code.toLowerCase());
@@ -429,7 +438,7 @@ test('roster_choices: a visitor sees the free names only with a valid code', asy
   // the table itself stays closed
   await fails(run(pg, null, 'select * from public.roster'), /permission denied/);
   eq((await run(pg, who(ID.amina), 'select * from public.roster')).rows.length, 0, 'a consultant reads the roster');
-  eq((await run(pg, who(ID.staff), 'select * from public.roster')).rows.length, 21);
+  eq((await run(pg, who(ID.staff), 'select * from public.roster')).rows.length, 25);
 });
 
 test('roster: deleting an account frees its name again', async () => {

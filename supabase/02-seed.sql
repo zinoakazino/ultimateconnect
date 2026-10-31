@@ -76,6 +76,15 @@ insert into public.roster (full_name, role, group_id) values
 ('Belbachir Mkhaissi', 'consultant', 2)
 on conflict (full_name) do nothing;
 
+-- L'équipe : elle s'inscrit avec le code du STAFF et touche son nom dans la liste (même principe que les participants).
+-- Zineddine voyage avec le groupe 2 ; Hichem, Samy et Yazid avec le groupe 1.
+insert into public.roster (full_name, role, group_id) values
+('Zineddine', 'staff', 2),
+('Hichem', 'staff', 1),
+('Samy', 'staff', 1),
+('Yazid', 'staff', 1)
+on conflict (full_name) do nothing;
+
 -- ---------- programme officiel (heures locales d'Istanbul = Alger + 2 h) ----------
 -- "—" = pas d'heure précise : la ligne s'affiche en premier de la journée.
 -- "group" : la ligne ne concerne que ce groupe (sans "group" = tout le monde). Les identifiants "o1", "o2"… sont ceux de ce fichier :
@@ -143,6 +152,6 @@ select code, value from (
   select 3, 'Participants dont le compte est prêt',
          count(*)::text || ' (groupe 1 : ' || count(*) filter (where group_id = 1)::text
                         || ', groupe 2 : ' || count(*) filter (where group_id = 2)::text || ')'
-  from public.roster
+  from public.roster where role = 'consultant'
 ) t
 order by o;

@@ -59,7 +59,7 @@ Astuce : « Le **verso du flyer** et l'onglet **Carte → Programmes** de l'appl
 3. **Zone orange** (jusqu'à 6 km) : uniquement en transport (tram, ferry, métro), à 3 minimum, retour avant 22:00. **Au-delà : uniquement avec le staff.**
 4. **Quartiers à éviter** (en rouge sur la carte) : Tarlabaşı, Dolapdere, Kuştepe. **Prudence** (en jaune) : Kasımpaşa, Laleli–Aksaray, Taksim la nuit.
 5. **Téléphone chargé** (prenez une batterie externe) et **position en direct dans le groupe WhatsApp**.
-6. **Urgence : 112** (numéro unique en Turquie). Police touristique à Sultanahmet. Le staff : [ numéros : Zineddine, Malek, Hichem, Samy, Yazid ].
+6. **Urgence : 112** (numéro unique en Turquie). Police touristique à Sultanahmet. Le staff : [ numéros : Zineddine, Hichem, Samy, Yazid ].
 
 À dire aussi : « Taxi : application **BiTaksi** ou l'hôtel appelle un taxi ; compteur allumé ; montrez l'adresse de l'hôtel en turc (elle est sur la carte **Urgence** et sur le flyer) : *Lütfen beni bu otele götürün.* »
 

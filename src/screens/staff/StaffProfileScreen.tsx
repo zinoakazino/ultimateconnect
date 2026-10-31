@@ -9,11 +9,13 @@ import { ScreenContainer } from '../../components/ScreenContainer';
 import { Brandmark } from '../../components/Brandmark';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
+import { FlightsCard } from '../../components/FlightsCard';
 import { FormField } from '../../components/FormField';
 import { SectionLabel } from '../../components/SectionLabel';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage, type AppLanguage } from '../../context/LanguageContext';
+import { useMyGroup } from '../../hooks/useTripGroups';
 import { fetchInviteCode, saveInviteCode } from '../../lib/api';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
@@ -30,6 +32,8 @@ export function StaffProfileScreen({ navigation }: Props) {
   const { language, setLanguage, restartPending, dismissRestartNotice } = useLanguage();
   const styles = makeStyles(colors);
   const { profile, signOut } = useAuth();
+  // the staff member's own travel group (picked at sign-up from the list): their own flights
+  const { group } = useMyGroup();
 
   const [code, setCode] = useState('');
   // false once we know no code has been set yet — nobody can sign up until one is.
@@ -72,6 +76,8 @@ export function StaffProfileScreen({ navigation }: Props) {
           <Text style={styles.name}>{profile.name}</Text>
           <Text style={styles.email}>{profile.email}</Text>
         </View>
+
+        {group ? <FlightsCard group={group} own /> : null}
 
         <Pressable style={styles.manageRow} onPress={() => navigation.navigate('ManageTrip')}>
           <View style={styles.manageIcon}>

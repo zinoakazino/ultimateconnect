@@ -146,7 +146,7 @@ await run('participants list: free names come with the code; taking one gives th
 
   // staff see who has signed up and can move someone to the other group; she cannot do it herself
   const roster = await staff.api.fetchRoster();
-  eq([roster.length, roster.filter((r) => r.profileUid).length], [21, 1]);
+  eq([roster.length, roster.filter((r) => r.profileUid).length], [25, 1]);   // 21 participants + 4 staff, one name taken
   await staff.api.setProfileGroup(data.user.id, 1);
   eq((await api.fetchProfile(data.user.id)).groupId, 1);
   eq((await staff.api.fetchRoster()).find((r) => r.name === 'Khentit Khaoula').groupId, 1);
