@@ -182,12 +182,18 @@ export async function saveInviteCode(code: string) {
 
 export async function fetchTrip(): Promise<TripDoc | null> {
   const r: any = must(await supabase.from('trip').select('*').eq('id', 'current').maybeSingle());
-  return r ? { name: r.name, startDate: new Date(r.start_date), endDate: new Date(r.end_date) } : null;
+  return r ? { name: r.name, nameAr: r.name_ar ?? '', startDate: new Date(r.start_date), endDate: new Date(r.end_date) } : null;
 }
 
-export async function saveTrip(trip: { name: string; startDate: Date; endDate: Date }) {
+export async function saveTrip(trip: { name: string; nameAr?: string; startDate: Date; endDate: Date }) {
   const res = await supabase.from('trip').upsert(
-    { id: 'current', name: trip.name, start_date: trip.startDate.toISOString(), end_date: trip.endDate.toISOString() },
+    {
+      id: 'current',
+      name: trip.name,
+      name_ar: trip.nameAr ?? '',
+      start_date: trip.startDate.toISOString(),
+      end_date: trip.endDate.toISOString(),
+    },
     { onConflict: 'id' }
   );
   if (res.error) throw res.error;
@@ -218,6 +224,8 @@ const toPlace = (r: any): PlaceDoc => ({
   category: r.category,
   name: r.name,
   description: r.description ?? '',
+  nameAr: r.name_ar ?? '',
+  descriptionAr: r.description_ar ?? '',
   ...(r.address ? { address: r.address } : {}),
   ...(r.phone ? { phone: r.phone } : {}),
   ...(r.lat != null ? { lat: r.lat } : {}),
@@ -235,6 +243,8 @@ export async function savePlace(id: string | null, place: Omit<PlaceDoc, 'id'>) 
     category: place.category,
     name: place.name,
     description: place.description ?? '',
+    name_ar: place.nameAr ?? '',
+    description_ar: place.descriptionAr ?? '',
     address: place.address ?? null,
     phone: place.phone ?? null,
     lat: place.lat ?? null,

@@ -9,7 +9,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from './src/context/AuthContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
-import { LanguageProvider } from './src/context/LanguageContext';
+import { LanguageProvider, useLanguage } from './src/context/LanguageContext';
 import { UnreadProvider } from './src/context/UnreadContext';
 import { LocationSharer } from './src/components/LocationSharer';
 import { RootNavigator } from './src/navigation/RootNavigator';
@@ -22,11 +22,15 @@ const WEB_MAX_WIDTH = 480;
 /** On a desktop browser, show the app as a centred phone-width column instead of stretching. */
 function WebFrame({ children }: { children: React.ReactNode }) {
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const { width } = useWindowDimensions();
   if (Platform.OS !== 'web') return <>{children}</>;
   const framed = width > WEB_MAX_WIDTH;
+  // `dir` on the root mirrors everything below it while the app is in Arabic (left/right styles and rows flip by themselves).
+  // react-native-web understands it; React Native's own View typings do not list it, hence the loose object.
+  const direction = { dir: isRTL ? 'rtl' : 'ltr' } as object;
   return (
-    <View style={[styles.webOuter, { backgroundColor: colors.bg }]}>
+    <View {...direction} style={[styles.webOuter, { backgroundColor: colors.bg }]}>
       <View
         style={[
           styles.webColumn,

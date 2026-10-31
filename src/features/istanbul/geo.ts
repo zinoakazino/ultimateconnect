@@ -45,6 +45,9 @@ export type AlertLevel = 'ok' | 'amber' | 'red';
 
 export interface LocationNotice {
   level: AlertLevel;
+  /** Which message this is: the screen says it in the app's language (`map.notice.<code>`); title / text below stay as the French wording. */
+  code: 'avoid' | 'outside' | 'caution' | 'orange' | 'ok';
+  params?: Record<string, string>;
   /** Short headline. */
   title: string;
   /** What to do. */
@@ -90,27 +93,30 @@ export function locate(point: LatLng, data: IstanbulData): LocationStatus {
 
   if (avoid.length) {
     const names = avoid.map((z) => z.name).join(', ');
+    const messages = avoid.map((z) => z.message).join(' ');
     notices.push({
       level: 'red',
+      code: 'avoid',
+      params: { names, anchor: anchor ? anchor.name : '', messages },
       title: `Vous êtes dans une zone à éviter (${names})`,
-      text:
-        `Revenez vers ${anchor ? anchor.name : "l'hôtel"} ou prenez un taxi. ` +
-        avoid.map((z) => z.message).join(' '),
+      text: `Revenez vers ${anchor ? anchor.name : "l'hôtel"} ou prenez un taxi. ` + messages,
     });
   }
   if (band === 'staff') {
     notices.push({
       level: 'red',
+      code: 'outside',
       title: 'Vous êtes hors de la zone autorisée',
       text: 'Contactez le staff.',
     });
   }
   caution.forEach((z) =>
-    notices.push({ level: 'amber', title: `Prudence : ${z.name}`, text: z.message })
+    notices.push({ level: 'amber', code: 'caution', params: { name: z.name, message: z.message }, title: `Prudence : ${z.name}`, text: z.message })
   );
   if (band === 'orange') {
     notices.push({
       level: 'amber',
+      code: 'orange',
       title: 'Vous êtes hors de la zone verte',
       text: 'Ici : uniquement en transport (tram, ferry, métro), en groupe de 3 minimum, retour à l’hôtel avant 22h.',
     });
@@ -118,6 +124,7 @@ export function locate(point: LatLng, data: IstanbulData): LocationStatus {
   if (!notices.length) {
     notices.push({
       level: 'ok',
+      code: 'ok',
       title: 'Vous êtes dans la zone verte',
       text: 'Vous pouvez circuler librement à pied. Restez sur les rues principales le soir.',
     });

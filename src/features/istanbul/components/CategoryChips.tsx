@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../context/ThemeContext';
 import { fonts, spacing } from '../../../theme';
 import type { Colors } from '../../../theme';
-import { istanbul } from '../data';
+import { useIstanbul } from '../data';
 
 interface CategoryChipsProps {
   /** Selected category ids. Empty means "Tout". */
@@ -14,6 +14,7 @@ interface CategoryChipsProps {
 
 export function CategoryChips({ selected, onChange }: CategoryChipsProps) {
   const { t } = useTranslation();
+  const { data: istanbul } = useIstanbul();
   const { colors } = useTheme();
   const styles = makeStyles(colors);
 

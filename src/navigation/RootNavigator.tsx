@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { supabaseConfigured } from '../lib/supabase';
 import { fonts, spacing } from '../theme';
+import { WelcomeTour } from '../components/WelcomeTour';
 import { ResetPasswordScreen } from '../screens/auth/ResetPasswordScreen';
 import { AuthStack } from './AuthStack';
 import { ConsultantNavigator } from './ConsultantNavigator';
@@ -48,15 +49,19 @@ export function RootNavigator() {
   if (recovering) return <ResetPasswordScreen />;
 
   return (
-    <NavigationContainer theme={navTheme}>
-      {!authUser || !profile ? (
-        <AuthStack />
-      ) : profile.role === 'staff' ? (
-        <StaffNavigator />
-      ) : (
-        <ConsultantNavigator />
-      )}
-    </NavigationContainer>
+    <>
+      <NavigationContainer theme={navTheme}>
+        {!authUser || !profile ? (
+          <AuthStack />
+        ) : profile.role === 'staff' ? (
+          <StaffNavigator />
+        ) : (
+          <ConsultantNavigator />
+        )}
+      </NavigationContainer>
+      {/* the first time someone signs in on this device, a short tour explains the app (it can be replayed from the profile) */}
+      {authUser && profile ? <WelcomeTour role={profile.role} /> : null}
+    </>
   );
 }
 

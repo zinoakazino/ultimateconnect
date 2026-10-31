@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, I18nManager, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,14 @@ import { fonts, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { ConsultantStackParamList } from '../../navigation/types';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = NativeStackScreenProps<ConsultantStackParamList, 'DmInbox'>;
 
 /** Private messages from staff. Consultants reply here; staff are the ones who start threads. */
 export function DmInboxScreen({ navigation }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { authUser } = useAuth();
   const threads = useDmThreads(authUser?.uid);
@@ -29,7 +31,7 @@ export function DmInboxScreen({ navigation }: Props) {
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Feather
-            name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+            name={isRTL ? 'arrow-right' : 'arrow-left'}
             size={18}
             color={colors.ink}
           />

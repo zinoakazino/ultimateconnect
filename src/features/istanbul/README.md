@@ -29,6 +29,7 @@ Puis relancez l'application (`npm start`) ou reconstruisez le site (`npm run bui
 | Modifier le programme officiel du groupe (vols, formation…) | `officialProgram` |
 | Renseigner les numéros du staff | `emergency.staff` |
 | Modifier les arnaques / les règles | `emergency.scams` / `rules` |
+| Écrire ou corriger l'arabe de la carte | [`istanbul-data.ar.json`](./istanbul-data.ar.json) (voir « Les textes en arabe ») |
 | Imprimer le programme et la carte en flyers | `tools/flyer/README.md` (utilise `officialProgram`, `programs`, `short` et `flyer`) |
 
 ---
@@ -139,6 +140,25 @@ Dans `emergency.staff`, remplissez `phone` (format international, avec l'indicat
 
 Tant que `phone` est vide, l'écran Urgence affiche « Numéro bientôt disponible ».
 Les contacts que le staff ajoute dans l'application (Profil → Gérer le voyage → Urgences et contacts) s'affichent aussi dans cet écran.
+
+## Les textes en arabe
+
+L'application existe en français et en arabe, et chacun change de langue quand il veut. Le français est dans
+`istanbul-data.json` ; l'arabe est dans [`istanbul-data.ar.json`](./istanbul-data.ar.json), un fichier « jumeau »
+qui reprend les mêmes identifiants (les positions, prix, zones et horaires ne sont écrits qu'une fois, dans le fichier français) :
+
+| Dans `istanbul-data.json` | Son arabe dans `istanbul-data.ar.json` |
+|---|---|
+| un lieu (`id`) | `places.<id>` : `name`, `description`, `tip` |
+| une idée de sortie (`id`) | `programs.<id>` : `title`, `tagline`, `mode`, `warnings` (le même nombre), `stops` (le même ordre : `label`, `note`) |
+| une zone, une catégorie, un arrêt de transport | `zones.<id>` (`name`, `message`), `categories.<id>`, `transportStops.<id>` |
+| un point de retour | `safeAnchors.<nom français>` |
+| les règles du groupe, les arnaques, les rôles du staff | `rules` (le même nombre), `emergency.scams` (même ordre), `emergency.staffRoles.<rôle>` |
+
+Quand vous **ajoutez un lieu ou une idée**, ajoutez aussi son arabe dans ce fichier : `npm run map:check` échoue
+(`✗ arabe : … n'a pas de traduction`) tant qu'un texte français n'a pas son jumeau, pour qu'aucun lieu ne parte à moitié traduit.
+Les noms de marques ou de restaurants peuvent rester en lettres latines. Les textes de l'application (boutons, messages
+« Où suis-je ? »…) sont dans `src/i18n/locales/fr.json` et `ar.json`. Les flyers imprimés restent en français.
 
 ## Vérifier les coordonnées
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -17,11 +17,13 @@ import type { StaffStackParamList } from '../../navigation/types';
 import type { PlaceCategory } from '../../types/models';
 import { GUIDE_SECTIONS } from '../consultant/TripGuideScreen';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = NativeStackScreenProps<StaffStackParamList, 'PlaceEditor'>;
 
 export function PlaceEditorScreen({ navigation, route }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { places } = usePlaces();
   const placeId = route.params?.placeId;
@@ -30,6 +32,8 @@ export function PlaceEditorScreen({ navigation, route }: Props) {
   const [category, setCategory] = useState<PlaceCategory>('recommended');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [nameAr, setNameAr] = useState('');
+  const [descriptionAr, setDescriptionAr] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [coords, setCoords] = useState('');
@@ -43,6 +47,8 @@ export function PlaceEditorScreen({ navigation, route }: Props) {
     setCategory(existing.category);
     setName(existing.name);
     setDescription(existing.description ?? '');
+    setNameAr(existing.nameAr ?? '');
+    setDescriptionAr(existing.descriptionAr ?? '');
     setAddress(existing.address ?? '');
     setPhone(existing.phone ?? '');
     setCoords(
@@ -77,6 +83,8 @@ export function PlaceEditorScreen({ navigation, route }: Props) {
         category,
         name: name.trim(),
         description: description.trim(),
+        nameAr: nameAr.trim(),
+        descriptionAr: descriptionAr.trim(),
         ...(address.trim() ? { address: address.trim() } : {}),
         ...(phone.trim() ? { phone: phone.trim() } : {}),
         ...(lat !== undefined && lng !== undefined ? { lat, lng } : {}),
@@ -107,7 +115,7 @@ export function PlaceEditorScreen({ navigation, route }: Props) {
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Feather
-            name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+            name={isRTL ? 'arrow-right' : 'arrow-left'}
             size={18}
             color={colors.ink}
           />
@@ -140,6 +148,14 @@ export function PlaceEditorScreen({ navigation, route }: Props) {
             label={t('manage.description')}
             value={description}
             onChangeText={setDescription}
+            multiline
+            style={styles.multiline}
+          />
+          <FormField label={t('manage.nameAr')} value={nameAr} onChangeText={setNameAr} />
+          <FormField
+            label={t('manage.descriptionAr')}
+            value={descriptionAr}
+            onChangeText={setDescriptionAr}
             multiline
             style={styles.multiline}
           />

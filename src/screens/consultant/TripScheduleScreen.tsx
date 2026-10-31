@@ -1,5 +1,5 @@
 import React from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -11,10 +11,12 @@ import { useTrip } from '../../hooks/useTrip';
 import { compareScheduleItems, useFullSchedule } from '../../hooks/useSchedule';
 import { formatDateRange, toDate, todayKey } from '../../lib/dates';
 import { groupTag, itemsForGroup } from '../../lib/groups';
+import { pickText } from '../../lib/localized';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { ConsultantStackParamList } from '../../navigation/types';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = NativeStackScreenProps<ConsultantStackParamList, 'TripSchedule'>;
 
 function dayLabel(key: string, locale: string) {
@@ -27,6 +29,7 @@ function dayLabel(key: string, locale: string) {
 export function TripScheduleScreen({ navigation }: Props) {
   const { t, i18n } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { trip } = useTrip();
   const { profile } = useAuth();
@@ -43,7 +46,7 @@ export function TripScheduleScreen({ navigation }: Props) {
     <ScreenContainer>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
-          <Feather name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'} size={18} color={colors.ink} />
+          <Feather name={isRTL ? 'arrow-right' : 'arrow-left'} size={18} color={colors.ink} />
         </Pressable>
         <Text style={styles.title}>{t('schedule.fullTitle')}</Text>
         <View style={{ width: 18 }} />
@@ -52,10 +55,11 @@ export function TripScheduleScreen({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.scroll}>
         {trip && (
           <Card variant="dark" noShadow style={styles.tripCard}>
-            <Text style={styles.tripName}>{trip.name}</Text>
+            <Text style={styles.tripName}>{pickText(trip.name, trip.nameAr, i18n.language)}</Text>
             {start && end && <Text style={styles.tripDates}>{formatDateRange(start, end)}</Text>}
           </Card>
         )}
+        <Text style={styles.officialHint}>{t('schedule.officialHint')}</Text>
         {hasGroupLines && (
           <Text style={styles.groupCaption}>
             {groupId != null ? t('schedule.forGroup', { n: groupId }) : t('schedule.allGroups')}
@@ -80,7 +84,7 @@ export function TripScheduleScreen({ navigation }: Props) {
                   <Text style={styles.time}>{item.time}</Text>
                   <Text style={[styles.itemTitle, item.important && styles.itemImportant]}>
                     {item.group != null && groupId == null ? `${groupTag(item.group)} · ` : ''}
-                    {item.title}
+                    {pickText(item.title, item.titleAr, i18n.language)}
                   </Text>
                 </View>
               ))}
@@ -108,6 +112,7 @@ function makeStyles(colors: Colors) {
     tripCard: { marginBottom: spacing.md },
     tripName: { fontFamily: fonts.display, fontSize: 17, color: colors.white },
     tripDates: { fontFamily: fonts.body, fontSize: 12, color: 'rgba(255,255,255,0.85)', marginTop: 4 },
+    officialHint: { fontFamily: fonts.body, fontSize: 12, lineHeight: 17, color: colors.inkSoft, marginTop: spacing.sm },
     groupCaption: { fontFamily: fonts.mono, fontSize: 10.5, color: colors.green, marginTop: spacing.xs },
     day: {
       marginTop: spacing.md,

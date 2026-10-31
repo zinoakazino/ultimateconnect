@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { useTranslation } from 'react-i18next';
 import { ScreenContainer } from '../../components/ScreenContainer';
@@ -12,10 +12,13 @@ import { useTripGroups } from '../../hooks/useTripGroups';
 import { notifyUsers } from '../../lib/api';
 import { todayKey } from '../../lib/dates';
 import { groupTag } from '../../lib/groups';
+import { bilingual, reminderText } from '../../lib/localized';
+import { HelpButton } from '../../components/GuideModal';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { ScheduleItem } from '../../types/models';
 
+import { useLanguage } from '../../context/LanguageContext';
 function addDays(key: string, delta: number) {
   const [y, m, d] = key.split('-').map(Number);
   const date = new Date(y, m - 1, d + delta);
@@ -31,6 +34,7 @@ function formatDateLabel(key: string, locale: string) {
 export function ScheduleComposerScreen() {
   const { t, i18n } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const [dateKey, setDateKey] = useState(todayKey());
   const { items, publish } = useSchedule(dateKey);
@@ -39,6 +43,7 @@ export function ScheduleComposerScreen() {
 
   const [time, setTime] = useState('');
   const [title, setTitle] = useState('');
+  const [titleAr, setTitleAr] = useState('');
   const [important, setImportant] = useState(false);
   // who the new line is for: everybody (null) or one travel group
   const [audience, setAudience] = useState<number | null>(null);
@@ -46,8 +51,8 @@ export function ScheduleComposerScreen() {
   const [draft, setDraft] = useState<ScheduleItem[] | null>(null);
 
   const list = draft ?? items;
-  const prevIcon = I18nManager.isRTL ? 'chevron-right' : 'chevron-left';
-  const nextIcon = I18nManager.isRTL ? 'chevron-left' : 'chevron-right';
+  const prevIcon = isRTL ? 'chevron-right' : 'chevron-left';
+  const nextIcon = isRTL ? 'chevron-left' : 'chevron-right';
 
   const addItem = () => {
     if (!time.trim() || !title.trim()) return;
@@ -55,6 +60,7 @@ export function ScheduleComposerScreen() {
       id: newScheduleItemId(),
       time: time.trim(),
       title: title.trim(),
+      ...(titleAr.trim() ? { titleAr: titleAr.trim() } : {}),
       important,
       createdBy: 'staff',
       ...(audience != null ? { group: audience } : {}),
@@ -62,6 +68,7 @@ export function ScheduleComposerScreen() {
     setDraft([...(draft ?? items), item].sort(compareScheduleItems));
     setTime('');
     setTitle('');
+    setTitleAr('');
     setImportant(false);
   };
 
@@ -83,7 +90,7 @@ export function ScheduleComposerScreen() {
         await notifyUsers(
           consultantIds,
           'schedule',
-          t('staffSchedule.updatedNotice', { date: formatDateLabel(dateKey, i18n.language) })
+          bilingual('staffSchedule.updatedNotice', (lng) => ({ date: formatDateLabel(dateKey, lng) }))
         );
         for (const item of newImportant) {
           // a line for one travel group is only news to that group (and to people not placed in a group yet)
@@ -91,7 +98,7 @@ export function ScheduleComposerScreen() {
             item.group != null
               ? consultants.filter((c) => c.groupId == null || c.groupId === item.group).map((c) => c.uid)
               : consultantIds;
-          await notifyUsers(who, 'reminder', `${t('home.reminderPrefix')}${item.title}`);
+          await notifyUsers(who, 'reminder', reminderText(item.title, item.titleAr));
         }
       }
       setDraft(null);
@@ -103,7 +110,10 @@ export function ScheduleComposerScreen() {
   return (
     <ScreenContainer>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('staffSchedule.title')}</Text>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{t('staffSchedule.title')}</Text>
+          <HelpButton guide="staffSchedule" />
+        </View>
         <View style={styles.dateNav}>
           <Pressable onPress={() => setDateKey((k) => addDays(k, -1))} hitSlop={8}>
             <Feather name={prevIcon} size={16} color={colors.inkSoft} />
@@ -152,6 +162,13 @@ export function ScheduleComposerScreen() {
             <Feather name="plus" size={16} color={colors.white} />
           </Pressable>
         </View>
+        <TextInput
+          style={styles.titleArInput}
+          value={titleAr}
+          onChangeText={setTitleAr}
+          placeholder={t('staffSchedule.addPlaceholderAr') ?? ''}
+          placeholderTextColor={colors.inkSoft}
+        />
 
         {groups.length > 0 && (
           <View style={styles.audience}>
@@ -212,6 +229,7 @@ function makeStyles(colors: Colors) {
       fontSize: 19,
       color: colors.ink,
     },
+    titleRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, flexShrink: 1 },
     dateNav: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -282,6 +300,18 @@ function makeStyles(colors: Colors) {
       borderStyle: 'dashed',
       borderRadius: radii.sm,
       paddingHorizontal: spacing.md,
+      fontFamily: fonts.body,
+      fontSize: 12.5,
+      color: colors.ink,
+    },
+    titleArInput: {
+      marginTop: spacing.sm,
+      borderWidth: 1,
+      borderColor: colors.line,
+      borderStyle: 'dashed',
+      borderRadius: radii.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: 8,
       fontFamily: fonts.body,
       fontSize: 12.5,
       color: colors.ink,

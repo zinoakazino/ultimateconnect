@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../context/ThemeContext';
 import { fonts, radii, spacing } from '../../../theme';
 import { openDirections } from '../../../lib/maps';
-import { ACCESS_LABEL, getCategory, istanbul, ZONE_STYLE, type ResolvedZone } from '../data';
+import { ACCESS_STYLE, useIstanbul, ZONE_STYLE, type ResolvedZone } from '../data';
 import { distanceMeters, formatDistance } from '../geo';
 import type { Place } from '../types';
 
@@ -58,9 +58,10 @@ function Badge({ label, color, solid }: { label: string; color: string; solid?: 
 /** Details of a place: what it is, a practical tip, the price and how to get there. */
 export function PlaceSheet({ place }: { place: Place }) {
   const { t } = useTranslation();
+  const { data: istanbul, getCategory } = useIstanbul();
   const { colors } = useTheme();
   const category = getCategory(place.category);
-  const access = ACCESS_LABEL[place.zone];
+  const access = { label: t(`map.access.${place.zone}`), color: ACCESS_STYLE[place.zone].color };
   const distance = distanceMeters(place, istanbul.hotel);
   const walkMinutes = Math.max(1, Math.round(distance / WALK_METERS_PER_MIN));
 
@@ -120,7 +121,7 @@ export function ZoneSheet({ zone }: { zone: ResolvedZone }) {
   const { colors } = useTheme();
   const style = ZONE_STYLE[zone.kind];
   const title =
-    zone.kind === 'eviter' ? t('map.legendAvoid') : zone.kind === 'prudence' ? t('map.legendCaution') : style.label;
+    zone.kind === 'eviter' ? t('map.legendAvoid') : zone.kind === 'prudence' ? t('map.legendCaution') : t(`map.zoneLabel.${zone.kind}`);
   return (
     <View>
       <View style={sheetStyles.titleRow}>
@@ -145,6 +146,7 @@ export function ZoneSheet({ zone }: { zone: ResolvedZone }) {
 export function HotelSheet() {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const { data: istanbul } = useIstanbul();
   const hotel = istanbul.hotel;
   return (
     <View>

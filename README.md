@@ -4,7 +4,7 @@ Trip app for **Ultimate Health & Beauty** — a few staff and ~20 consultants sh
 schedule, chat, a trip guide, an interactive map and alerts during the Istanbul trip
 (5–9 Nov 2026 — the dates shown on Home are set by staff in *Gérer le voyage*).
 It is a **web app** (installable on iPhone, Android and PC), hosted on **Render** with its data in
-**Supabase**. Everything is in French and Arabic, light and dark.
+**Supabase**. Everything is in French and Arabic (switch at any time; Arabic reads right-to-left), light and dark.
 
 ## What it does
 
@@ -28,6 +28,14 @@ It is a **web app** (installable on iPhone, Android and PC), hosted on **Render*
   The same data prints as double-sided flyers, 3 per A4 sheet: the official programme + free-time ideas
   **in one version per travel group** (each with its own flights), and the map + a pocket guide to tick
   (the same for everybody): `tools/flyer/README.md`.
+- **Official programme and free-time ideas are two separate things.** The *official programme* is what staff
+  set day by day (flights, formation, tour…): Home shows today's lines under « Fixé par l'équipe », the whole
+  list is one tap away. The *ideas for free time* are our optional suggestions (a pale card on Home and the
+  Carte tab; only those made for the person's own travel group): nothing there is compulsory.
+- **Guide pop-ups**: a short welcome tour opens by itself the first time someone signs in (7 steps for
+  consultants, 6 for staff; once per account, replayable from the profile) and a round **?** button on every
+  main screen explains that screen in 2–3 steps (`src/components/GuideModal.tsx`; texts under `guide.*` in
+  `fr.json` / `ar.json`).
 - Alerts feed, language / theme switch, **opt-in** location sharing (transparent toggle,
   foreground only, can be turned off at any time).
 
@@ -66,7 +74,7 @@ Windows PowerShell may block `npm`/`npx` scripts — use `npm.cmd` / `npx.cmd`.
 Supabase look-alike (sign-in, data API, real-time). Nothing leaves your computer.
 
 ```bash
-npm run db:test           # 25 database tests (row-level security, grants, groups, participants list) + 11 end-to-end tests of src/lib/api.ts + 8 build-guard tests
+npm run db:test           # 26 database tests (row-level security, grants, groups, participants list, Arabic content) + 11 end-to-end tests of src/lib/api.ts + 8 build-guard tests
 npm run db:mock           # API on :54321, prints the URL, anon key, codes and test accounts
 ```
 
@@ -155,7 +163,7 @@ landing at Sabiha Gökçen). Everything else (hotel, formation, walks) is the sa
 - **Free a name** (the person lost their account): delete their user in *Supabase → Authentication → Users*; the name
   goes back into the list.
 - Re-running `02-seed.sql` is safe: programme days the staff edited, codes, groups and people already there stay as
-  they are (a day still made only of seed lines is refreshed).
+  they are (a day still made only of seed lines is refreshed; Arabic texts are filled only where still empty).
 
 Good to know:
 - Since 30 May 2026 a new Supabase project does not open new tables to the API by itself (the
@@ -170,6 +178,24 @@ Good to know:
 - To make another person staff after sign-up: `update public.profiles set role = 'staff' where email = '…';`
 - Change the staff code: `update public.config set value = 'NEW-CODE' where key = 'staff_code';`
 
+## French and Arabic
+
+Everybody can switch at any time, even before signing in (the *Français | العربية* pills on the login screens
+and in the profile). The choice is remembered on the device; a phone set to Arabic starts in Arabic. Arabic
+mirrors the whole layout right-to-left: the page gets `dir="rtl"` and `useLanguage().isRTL` replaces
+`I18nManager.isRTL` (always false on the web).
+
+- **Interface texts**: `src/i18n/locales/fr.json` and `ar.json`, the same keys in both (keep them in step).
+- **What staff type** (schedule lines, guide places, trip name) has an optional Arabic field next to the French
+  one. A reader in Arabic sees the Arabic text when it exists, the French one otherwise. `02-seed.sql` already
+  holds the Arabic of the seeded programme, the 13 guide places and the trip name.
+- **Alerts written by the app** (schedule reminders, a group change) are stored once in both languages and
+  shown in the reader's (`src/lib/localized.ts`).
+- **Carte Istanbul**: French in `istanbul-data.json`, Arabic in `istanbul-data.ar.json` (same ids).
+  `npm run map:check` fails when a French text of the map has no Arabic twin, so a new place cannot go out
+  half-translated.
+- The printed flyers (`tools/flyer`) are French only.
+
 ## Limits to know about
 
 - **No phone push notifications** (a web app cannot receive them without extra servers): alerts show
@@ -180,14 +206,15 @@ Good to know:
   the app and open without a connection (only the map background tiles need Internet). Chat, schedule
   and guide need a connection. For maps offline, download Istanbul in Google Maps → *Offline maps*.
 - **Map tiles** come from OpenStreetMap's public servers (fine for ~30 people).
-- **Arabic on the web** is translated but the layout is not mirrored (React Native Web has no RTL switch).
+- **Arabic** is fully translated and mirrored. What staff type later is shown as typed: fill the optional Arabic
+  field to give Arabic readers their version. The printed flyers are French only.
 - No AI assistant or file uploads: they need a paid plan or API key.
 
 ## Layout
 
 ```
 src/
-  components/   shared UI (Wordmark, Card, Button, ChatThread, LocationSharer…)
+  components/   shared UI (Wordmark, Card, Button, ChatThread, LocationSharer, GuideModal, WelcomeTour, LanguageSwitch…)
   context/      Auth, Theme, Language, Unread (badges)
   hooks/        live data hooks (messages, threads, check-ins, help requests…)
   lib/          supabase client, api (all reads/writes), live (real-time + refresh), maps, dates, auth errors

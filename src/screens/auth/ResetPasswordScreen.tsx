@@ -5,6 +5,7 @@ import { ScreenContainer } from '../../components/ScreenContainer';
 import { Wordmark } from '../../components/Wordmark';
 import { FormField } from '../../components/FormField';
 import { Button } from '../../components/Button';
+import { LanguageSwitch } from '../../components/LanguageSwitch';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { translateAuthError } from '../../lib/authErrors';
@@ -42,6 +43,7 @@ export function ResetPasswordScreen() {
     <ScreenContainer>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
+          <LanguageSwitch style={styles.langSwitch} />
           <Wordmark width={190} style={styles.brand} />
           <Text style={styles.title}>{t('auth.newPasswordTitle')}</Text>
           <Text style={styles.sub}>{t('auth.newPasswordSubtitle')}</Text>
@@ -74,6 +76,7 @@ function makeStyles(colors: Colors) {
   return StyleSheet.create({
     flex: { flex: 1 },
     scroll: { flexGrow: 1, justifyContent: 'center', padding: spacing.xxl },
+    langSwitch: { alignSelf: 'flex-end', marginBottom: spacing.md },
     brand: { alignSelf: 'center', marginBottom: spacing.lg },
     title: { fontFamily: fonts.display, fontSize: 24, color: colors.ink, textAlign: 'center', marginBottom: 4 },
     sub: { fontFamily: fonts.body, fontSize: 13, color: colors.inkSoft, textAlign: 'center', marginBottom: spacing.xxl },

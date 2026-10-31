@@ -80,6 +80,8 @@ export interface RosterChoice {
 
 export interface TripDoc {
   name: string;
+  /** The name in Arabic ('' = none: the French one is shown). */
+  nameAr: string;
   startDate: Date;
   endDate: Date;
 }
@@ -88,6 +90,8 @@ export interface ScheduleItem {
   id: string;
   time: string;
   title: string;
+  /** The line in Arabic: shown instead of `title` when the app is in Arabic (missing = the French one is shown). */
+  titleAr?: string;
   important: boolean;
   createdBy: string;
   /** Only this travel group sees the line (flights, hotel arrival…). Missing = everybody. */
@@ -166,6 +170,9 @@ export interface PlaceDoc {
   category: PlaceCategory;
   name: string;
   description: string;
+  /** The same two texts in Arabic ('' = none: the French ones are shown). */
+  nameAr: string;
+  descriptionAr: string;
   address?: string;
   phone?: string;
   lat?: number;

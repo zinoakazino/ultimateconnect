@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -11,11 +11,13 @@ import { useTrip } from '../../hooks/useTrip';
 import { usePlaces } from '../../hooks/usePlaces';
 import { toDate, formatDateRange } from '../../lib/dates';
 import { callPhone, openInMaps } from '../../lib/maps';
+import { pickText } from '../../lib/localized';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { ConsultantStackParamList } from '../../navigation/types';
 import type { PlaceCategory, PlaceDoc } from '../../types/models';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = NativeStackScreenProps<ConsultantStackParamList, 'TripGuide'>;
 
 export const GUIDE_SECTIONS: {
@@ -33,8 +35,9 @@ export const GUIDE_SECTIONS: {
 ];
 
 export function TripGuideScreen({ navigation }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { trip } = useTrip();
   const { places } = usePlaces();
@@ -57,7 +60,7 @@ export function TripGuideScreen({ navigation }: Props) {
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Feather
-            name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+            name={isRTL ? 'arrow-right' : 'arrow-left'}
             size={18}
             color={colors.ink}
           />
@@ -69,7 +72,7 @@ export function TripGuideScreen({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.scroll}>
         {trip && (
           <Card variant="dark" noShadow style={styles.tripCard}>
-            <Text style={styles.tripName}>{trip.name}</Text>
+            <Text style={styles.tripName}>{pickText(trip.name, trip.nameAr, i18n.language)}</Text>
             {start && end && <Text style={styles.tripDates}>{formatDateRange(start, end)}</Text>}
           </Card>
         )}
@@ -92,10 +95,10 @@ export function TripGuideScreen({ navigation }: Props) {
                   <Card key={place.id} variant="pale" noShadow style={styles.placeCard}>
                     <View style={styles.placeRow}>
                       <Feather name={section.icon} size={14} color={colors.greenDeep} />
-                      <Text style={styles.placeName}>{place.name}</Text>
+                      <Text style={styles.placeName}>{pickText(place.name, place.nameAr, i18n.language)}</Text>
                     </View>
                     {place.description ? (
-                      <Text style={styles.placeDesc}>{place.description}</Text>
+                      <Text style={styles.placeDesc}>{pickText(place.description, place.descriptionAr, i18n.language)}</Text>
                     ) : null}
                     {place.address ? <Text style={styles.placeAddress}>{place.address}</Text> : null}
                     {(canMap || place.phone) && (
@@ -108,7 +111,7 @@ export function TripGuideScreen({ navigation }: Props) {
                                 lat: place.lat,
                                 lng: place.lng,
                                 address: place.address,
-                                label: place.name,
+                                label: pickText(place.name, place.nameAr, i18n.language),
                               })
                             }
                           >

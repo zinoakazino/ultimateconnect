@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../context/ThemeContext';
 import { fonts, radii, spacing } from '../../../theme';
 import type { Colors } from '../../../theme';
-import { getCategory, getPlace, istanbul, resolveProgram, ZONE_STYLE } from '../data';
+import { useIstanbul, ZONE_STYLE } from '../data';
+import { useAuth } from '../../../context/AuthContext';
 
 interface ProgramListProps {
   /** The program currently drawn on the map, if any. */
@@ -16,13 +17,18 @@ interface ProgramListProps {
 
 export function ProgramList({ activeId, onShowOnMap, onStopPress }: ProgramListProps) {
   const { t } = useTranslation();
+  const { data: istanbul, getCategory, getPlace, resolveProgram } = useIstanbul();
+  const { profile } = useAuth();
+  const myGroup = profile?.groupId ?? null;
+  // each group sees the ideas made for ITS free time (staff, and people without a group yet, see them all)
+  const ideas = istanbul.programs.filter((p) => p.group == null || myGroup == null || p.group === myGroup);
   const { colors } = useTheme();
   const styles = makeStyles(colors);
   const [openId, setOpenId] = useState<string | null>(activeId);
 
   return (
     <View style={styles.list}>
-      {istanbul.programs.map((program) => {
+      {ideas.map((program) => {
         const open = openId === program.id;
         const stops = resolveProgram(program);
         const zoneColor = ZONE_STYLE[program.zone].color;
@@ -41,7 +47,7 @@ export function ProgramList({ activeId, onShowOnMap, onStopPress }: ProgramListP
                 <View style={styles.chips}>
                   <View style={[styles.chip, { borderColor: zoneColor, backgroundColor: `${zoneColor}1F` }]}>
                     <Text style={[styles.chipText, { color: zoneColor }]}>
-                      {program.zone === 'verte' ? ZONE_STYLE.verte.label : ZONE_STYLE.orange.label}
+                      {t(program.zone === 'verte' ? 'map.zoneLabel.verte' : 'map.zoneLabel.orange')}
                     </Text>
                   </View>
                   <View style={[styles.chip, { borderColor: colors.line }]}>

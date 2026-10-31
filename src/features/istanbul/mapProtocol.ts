@@ -53,7 +53,7 @@ export interface MapPerson {
 
 /** Everything the map shows. The page redraws only the parts that changed. */
 export interface MapState {
-  hotel: { lat: number; lng: number; name: string };
+  hotel: { lat: number; lng: number; name: string; label?: string };
   zones: MapZone[];
   pins: MapPin[];
   route: MapRouteStop[] | null;

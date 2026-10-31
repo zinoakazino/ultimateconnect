@@ -5,6 +5,8 @@ import { useIsFocused, type CompositeScreenProps } from '@react-navigation/nativ
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
+import { pickText } from '../../lib/localized';
+import { HelpButton } from '../../components/GuideModal';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { ChatThread } from '../../components/ChatThread';
 import { EmergencyButton } from '../../features/istanbul/components/MapOverlays';
@@ -26,7 +28,7 @@ type Props = CompositeScreenProps<
 >;
 
 export function ChatScreen({ navigation }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
   const styles = makeStyles(colors);
   const { profile, authUser } = useAuth();
@@ -51,7 +53,7 @@ export function ChatScreen({ navigation }: Props) {
     <ScreenContainer edges={['top', 'left', 'right']} background={colors.greenDeep}>
       <View style={styles.header}>
         <Text style={styles.title} numberOfLines={1}>
-          {trip?.name ?? t('chat.groupDefault')}
+          {trip ? pickText(trip.name, trip.nameAr, i18n.language) : t('chat.groupDefault')}
         </Text>
         <View style={styles.headerActions}>
           <Pressable
@@ -67,6 +69,7 @@ export function ChatScreen({ navigation }: Props) {
               </View>
             )}
           </Pressable>
+          <HelpButton guide="chat" />
           <EmergencyButton compact />
         </View>
       </View>

@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { useTranslation } from 'react-i18next';
+import { pickNotificationText } from '../../lib/localized';
+import { HelpButton } from '../../components/GuideModal';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { SectionLabel } from '../../components/SectionLabel';
 import { EmergencyButton } from '../../features/istanbul/components/MapOverlays';
@@ -68,6 +70,7 @@ export function AlertsScreen() {
               <Text style={styles.markAll}>{t('alerts.markAllRead')}</Text>
             </Pressable>
           )}
+          <HelpButton guide="alerts" />
           <EmergencyButton compact />
         </View>
       </View>
@@ -103,6 +106,7 @@ function Row({
   colors: Colors;
   onPress: () => void;
 }) {
+  const { i18n } = useTranslation();
   const styles = makeStyles(colors);
   return (
     <Pressable style={styles.row} onPress={onPress}>
@@ -110,7 +114,7 @@ function Row({
         <Feather name={ICONS[n.type]} size={13} color={colors.greenDeep} />
       </View>
       <View style={styles.info}>
-        <Text style={[styles.text, !n.read && styles.textUnread]}>{n.text}</Text>
+        <Text style={[styles.text, !n.read && styles.textUnread]}>{pickNotificationText(n.text, i18n.language)}</Text>
         <Text style={styles.time}>{timeAgo(n.createdAt)}</Text>
       </View>
       {!n.read && <View style={styles.dot} />}

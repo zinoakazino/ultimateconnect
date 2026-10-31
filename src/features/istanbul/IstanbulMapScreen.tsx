@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import Feather from '@expo/vector-icons/Feather';
@@ -12,13 +12,15 @@ import { toDate, timeAgo } from '../../lib/dates';
 import { openDirections } from '../../lib/maps';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
-import { getCategory, getPlace, istanbul, resolvedZones, resolveProgram, ZONE_STYLE } from './data';
+import { useIstanbul, ZONE_STYLE } from './data';
+import { useLanguage } from '../../context/LanguageContext';
 import { formatDistance, locate, type LocationStatus } from './geo';
 import { MapEngine } from './MapEngine';
 import type { FitTarget, MapEvent, MapPerson, MapPin, MapState } from './mapProtocol';
 import { BottomSheet } from './components/BottomSheet';
 import { CategoryChips } from './components/CategoryChips';
 import { EmergencyButton, Legend, LocationBanner, RulesCard } from './components/MapOverlays';
+import { HelpButton } from '../../components/GuideModal';
 import { ProgramList } from './components/ProgramList';
 import { HotelSheet, PersonSheet, PlaceSheet, ZoneSheet } from './components/Sheets';
 
@@ -39,16 +41,16 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | null> {
 }
 
 /** Where a consultant is, written for the staff looking at their pin. */
-function staffSummary(s: LocationStatus): string {
+function staffSummary(s: LocationStatus, t: (key: string, params?: Record<string, unknown>) => string): string {
   const distance = formatDistance(s.distanceToHotel);
   const parts: string[] = [];
   const avoid = s.insideZones.filter((z) => z.kind === 'eviter').map((z) => z.name);
-  if (avoid.length) parts.push(`Dans une zone à éviter : ${avoid.join(', ')}.`);
-  if (s.band === 'staff') parts.push(`Hors de la zone autorisée, à ${distance} de l'hôtel.`);
-  else if (s.band === 'orange') parts.push(`Hors de la zone verte, à ${distance} de l'hôtel.`);
-  else parts.push(`Dans la zone verte, à ${distance} de l'hôtel.`);
+  if (avoid.length) parts.push(t('map.staff.avoid', { names: avoid.join(', ') }));
+  if (s.band === 'staff') parts.push(t('map.staff.outside', { distance }));
+  else if (s.band === 'orange') parts.push(t('map.staff.orange', { distance }));
+  else parts.push(t('map.staff.green', { distance }));
   const caution = s.insideZones.filter((z) => z.kind === 'prudence').map((z) => z.name);
-  if (caution.length) parts.push(`Zone de prudence : ${caution.join(', ')}.`);
+  if (caution.length) parts.push(t('map.staff.caution', { names: caution.join(', ') }));
   return parts.join(' ');
 }
 
@@ -58,6 +60,9 @@ function staffSummary(s: LocationStatus): string {
  */
 export function IstanbulMapScreen() {
   const { t } = useTranslation();
+  const { isRTL } = useLanguage();
+  // the whole content in the language the app is in now: places, zones, ideas, rules…
+  const { data: istanbul, getCategory, getPlace, zones: resolvedZones, resolveProgram } = useIstanbul();
   const { colors, mode } = useTheme();
   const styles = makeStyles(colors);
   const { profile } = useAuth();
@@ -83,6 +88,15 @@ export function IstanbulMapScreen() {
 
   const { consultants } = useConsultants(isStaff);
 
+  // coming from an idea on the Home screen: open the ideas list on that one
+  const initialProgram = (route.params as { programId?: string } | undefined)?.programId;
+  useEffect(() => {
+    if (initialProgram) {
+      setProgramId(initialProgram);
+      setTab('programs');
+    }
+  }, [initialProgram]);
+
   const moveCamera = useCallback((target: FitTarget, focus: string | null = null, padTop?: number) => {
     setFocusId(focus);
     setFit((f) => ({ target, nonce: f.nonce + 1, padTop }));
@@ -90,7 +104,7 @@ export function IstanbulMapScreen() {
 
   const program = useMemo(
     () => istanbul.programs.find((p) => p.id === programId) ?? null,
-    [programId]
+    [programId, istanbul]
   );
 
   const routeStops = useMemo(() => {
@@ -103,7 +117,7 @@ export function IstanbulMapScreen() {
       kind: s.kind,
       placeId: s.placeId,
     }));
-  }, [program]);
+  }, [program, resolveProgram]);
 
   const pins = useMemo<MapPin[]>(() => {
     const filtering = categories.length > 0;
@@ -113,7 +127,7 @@ export function IstanbulMapScreen() {
         const c = getCategory(p.category);
         return { id: p.id, name: p.name, lat: p.lat, lng: p.lng, color: c?.color ?? '#475569', icon: c?.icon ?? '📍' };
       });
-  }, [categories]);
+  }, [categories, istanbul, getCategory]);
 
   const people = useMemo<(MapPerson & { statusText: string })[]>(() => {
     if (!isStaff || !showPeople) return [];
@@ -139,14 +153,14 @@ export function IstanbulMapScreen() {
           lng: loc.lng,
           color,
           detail: timeAgo(loc.updatedAt as any),
-          statusText: staffSummary(result),
+          statusText: staffSummary(result, t),
         };
       });
-  }, [consultants, isStaff, showPeople]);
+  }, [consultants, isStaff, showPeople, istanbul, t]);
 
   const mapState = useMemo<MapState>(
     () => ({
-      hotel: { lat: istanbul.hotel.lat, lng: istanbul.hotel.lng, name: istanbul.hotel.name },
+      hotel: { lat: istanbul.hotel.lat, lng: istanbul.hotel.lng, name: istanbul.hotel.name, label: t('map.hotelWord') },
       zones: resolvedZones.map((z) => ({
         id: z.id,
         kind: z.kind,
@@ -167,7 +181,7 @@ export function IstanbulMapScreen() {
       fit,
       focusId,
     }),
-    [pins, routeStops, user, people, selectedId, mode, fit, focusId]
+    [pins, routeStops, user, people, selectedId, mode, fit, focusId, istanbul, resolvedZones, t]
   );
 
   const onMapEvent = useCallback((e: MapEvent) => {
@@ -239,12 +253,12 @@ export function IstanbulMapScreen() {
     } finally {
       setLocating(false);
     }
-  }, [moveCamera, t]);
+  }, [moveCamera, t, istanbul]);
 
   const onBackToHotel = useCallback(() => {
     const far = status ? status.band !== 'verte' : false;
     openDirections(istanbul.hotel, far ? 'transit' : 'walking');
-  }, [status]);
+  }, [status, istanbul]);
 
   const showProgramOnMap = useCallback(
     (id: string) => {
@@ -304,7 +318,7 @@ export function IstanbulMapScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('common.back')}
           >
-            <Feather name="arrow-left" size={22} color={colors.ink} />
+            <Feather name={isRTL ? 'arrow-right' : 'arrow-left'} size={22} color={colors.ink} />
           </Pressable>
         )}
         <View style={styles.headerTexts}>
@@ -313,6 +327,7 @@ export function IstanbulMapScreen() {
             {istanbul.meta.trip} · {istanbul.hotel.name}
           </Text>
         </View>
+        <HelpButton guide="map" style={{ marginRight: 8 }} />
         <EmergencyButton />
       </View>
 

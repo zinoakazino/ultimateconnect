@@ -358,6 +358,28 @@ test('seed: two groups with their own flights, 21 prepared accounts, group lines
   }
 });
 
+test('seed: every programme line, guide place and the trip name also exist in Arabic; a re-run keeps what staff wrote', async () => {
+  const { pg } = await fresh();
+  const arabic = /[؀-ۿ]/;
+  for (const d of (await pg.query('select date, items from public.schedule order by date')).rows) {
+    for (const i of d.items) if (!arabic.test(i.titleAr || '')) throw new Error(`${d.date} ${i.id}: no Arabic title`);
+  }
+  for (const p of (await pg.query('select id, name_ar, description_ar from public.places')).rows) {
+    // a brand (BiTaksi, Istanbulkart) keeps its Latin name; every description is Arabic
+    if (!p.name_ar || !arabic.test(p.description_ar)) throw new Error(`place ${p.id}: no Arabic name / description`);
+  }
+  if (!arabic.test((await pg.query("select name_ar from public.trip where id = 'current'")).rows[0].name_ar)) throw new Error('trip name has no Arabic');
+  // the Arabic a staff member typed is never overwritten by running the seed again
+  const seed = (await import('./lib.mjs')).sqlFile('02-seed.sql');
+  await pg.query("update public.places set name_ar = 'اسم كتبه الفريق' where id = 'g1'");
+  await pg.query("update public.trip set name_ar = 'اسم آخر' where id = 'current'");
+  await pg.exec(seed);
+  eq((await pg.query("select name_ar from public.places where id = 'g1'")).rows[0].name_ar, 'اسم كتبه الفريق');
+  eq((await pg.query("select name_ar from public.trip where id = 'current'")).rows[0].name_ar, 'اسم آخر');
+  // a place the staff added has no Arabic yet and the app falls back to French: that must be allowed
+  await run(pg, who(ID.staff), "insert into public.places (category, name) values ('tool', 'Sans arabe')");
+});
+
 test('seed: run again, it upgrades untouched programme days but never what the staff changed', async () => {
   const { pg } = await fresh();
   const seed = (await import('./lib.mjs')).sqlFile('02-seed.sql');

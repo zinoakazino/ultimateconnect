@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { CompositeScreenProps } from '@react-navigation/native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { ScreenContainer } from '../../components/ScreenContainer';
+import { LanguageSwitch } from '../../components/LanguageSwitch';
 import { Brandmark } from '../../components/Brandmark';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
 import { FlightsCard } from '../../components/FlightsCard';
+import { ReplayGuideRow } from '../../components/WelcomeTour';
 import { FormField } from '../../components/FormField';
 import { SectionLabel } from '../../components/SectionLabel';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import { useLanguage, type AppLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { useMyGroup } from '../../hooks/useTripGroups';
 import { fetchInviteCode, saveInviteCode } from '../../lib/api';
 import { fonts, radii, spacing } from '../../theme';
@@ -29,7 +31,7 @@ type Props = CompositeScreenProps<
 export function StaffProfileScreen({ navigation }: Props) {
   const { t } = useTranslation();
   const { colors, mode, setMode } = useTheme();
-  const { language, setLanguage, restartPending, dismissRestartNotice } = useLanguage();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { profile, signOut } = useAuth();
   // the staff member's own travel group (picked at sign-up from the list): their own flights
@@ -85,7 +87,7 @@ export function StaffProfileScreen({ navigation }: Props) {
           </View>
           <Text style={styles.manageText}>{t('manage.manageTrip')}</Text>
           <Feather
-            name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'}
+            name={isRTL ? 'chevron-left' : 'chevron-right'}
             size={18}
             color={colors.inkSoft}
           />
@@ -114,28 +116,12 @@ export function StaffProfileScreen({ navigation }: Props) {
           />
         </Card>
 
+        <ReplayGuideRow role="staff" />
+
         <SectionLabel>{t('profile.settings')}</SectionLabel>
         <Card style={styles.settingsCard}>
           <Text style={styles.settingsLabel}>{t('profile.language')}</Text>
-          <View style={styles.pillRow}>
-            {(['fr', 'ar'] as AppLanguage[]).map((lang) => (
-              <Pressable
-                key={lang}
-                style={[styles.pill, language === lang && styles.pillOn]}
-                onPress={() => setLanguage(lang)}
-              >
-                <Text style={[styles.pillText, language === lang && styles.pillTextOn]}>
-                  {lang === 'fr' ? 'Français' : 'العربية'}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-          {restartPending && (
-            <Pressable style={styles.restartBanner} onPress={dismissRestartNotice}>
-              <Feather name="refresh-cw" size={12} color={colors.warnPaleText} />
-              <Text style={styles.restartText}>{t('profile.restartNote')}</Text>
-            </Pressable>
-          )}
+          <LanguageSwitch />
 
           <Text style={[styles.settingsLabel, styles.settingsLabelSpaced]}>
             {t('profile.theme')}

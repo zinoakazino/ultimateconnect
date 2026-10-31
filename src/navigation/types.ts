@@ -16,7 +16,8 @@ export interface DmThreadParams {
 
 export type ConsultantTabParamList = {
   Home: undefined;
-  Map: undefined;
+  /** `programId`: opens that free-time idea right away (from the Home screen). */
+  Map: { programId?: string } | undefined;
   Chat: undefined;
   Alerts: undefined;
   Profile: undefined;

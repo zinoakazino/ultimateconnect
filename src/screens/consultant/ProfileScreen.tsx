@@ -4,6 +4,8 @@ import * as Location from 'expo-location';
 import Feather from '@expo/vector-icons/Feather';
 import { useTranslation } from 'react-i18next';
 import { ScreenContainer } from '../../components/ScreenContainer';
+import { LanguageSwitch } from '../../components/LanguageSwitch';
+import { ReplayGuideRow } from '../../components/WelcomeTour';
 import { Brandmark } from '../../components/Brandmark';
 import { EmergencyButton } from '../../features/istanbul/components/MapOverlays';
 import { Card } from '../../components/Card';
@@ -12,7 +14,6 @@ import { ToggleRow } from '../../components/ToggleRow';
 import { SectionLabel } from '../../components/SectionLabel';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import { useLanguage, type AppLanguage } from '../../context/LanguageContext';
 import { setLocationSharing } from '../../lib/api';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
@@ -20,7 +21,6 @@ import type { Colors } from '../../theme';
 export function ProfileScreen() {
   const { t } = useTranslation();
   const { colors, mode, setMode } = useTheme();
-  const { language, setLanguage, restartPending, dismissRestartNotice } = useLanguage();
   const styles = makeStyles(colors);
   const { profile, authUser, signOut } = useAuth();
   const [locationError, setLocationError] = useState<string | null>(null);
@@ -104,25 +104,7 @@ export function ProfileScreen() {
         <SectionLabel>{t('profile.settings')}</SectionLabel>
         <Card style={styles.settingsCard}>
           <Text style={styles.settingsLabel}>{t('profile.language')}</Text>
-          <View style={styles.pillRow}>
-            {(['fr', 'ar'] as AppLanguage[]).map((lang) => (
-              <Pressable
-                key={lang}
-                style={[styles.pill, language === lang && styles.pillOn]}
-                onPress={() => setLanguage(lang)}
-              >
-                <Text style={[styles.pillText, language === lang && styles.pillTextOn]}>
-                  {lang === 'fr' ? 'Français' : 'العربية'}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-          {restartPending && (
-            <Pressable style={styles.restartBanner} onPress={dismissRestartNotice}>
-              <Feather name="refresh-cw" size={12} color={colors.warnPaleText} />
-              <Text style={styles.restartText}>{t('profile.restartNote')}</Text>
-            </Pressable>
-          )}
+          <LanguageSwitch />
 
           <Text style={[styles.settingsLabel, styles.settingsLabelSpaced]}>
             {t('profile.theme')}
@@ -146,6 +128,8 @@ export function ProfileScreen() {
             </Pressable>
           </View>
         </Card>
+
+        <ReplayGuideRow role="consultant" />
 
         <Button label={t('profile.signOut')} variant="outline" onPress={signOut} style={styles.signOut} />
       </ScrollView>

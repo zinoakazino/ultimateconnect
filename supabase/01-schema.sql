@@ -117,6 +117,11 @@ create table if not exists public.places (
   lng         double precision
 );
 
+-- Le texte en arabe du guide et du nom du voyage (affiché quand l'appli est en arabe ; vide = on montre le français).
+alter table public.trip   add column if not exists name_ar text not null default '';
+alter table public.places add column if not exists name_ar text not null default '';
+alter table public.places add column if not exists description_ar text not null default '';
+
 -- ---------- discussion de groupe ----------
 create table if not exists public.chat_meta (
   id        text primary key,

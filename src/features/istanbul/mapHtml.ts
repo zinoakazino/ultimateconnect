@@ -207,7 +207,7 @@ const ENGINE_JS = String.raw`
     groups.hotel.clearLayers();
     var icon = L.divIcon({
       className: 'uc-icon',
-      html: '<div class="hotel"><span>&#127976;</span></div><div class="hotel-label">Hôtel</div>',
+      html: '<div class="hotel"><span>&#127976;</span></div><div class="hotel-label">' + esc(h.label || 'Hôtel') + '</div>',
       iconSize: [54, 54], iconAnchor: [27, 27]
     });
     var marker = L.marker([h.lat, h.lng], { icon: icon, zIndexOffset: 1000, title: h.name });

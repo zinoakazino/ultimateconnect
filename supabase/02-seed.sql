@@ -92,34 +92,34 @@ on conflict (full_name) do nothing;
 -- y a ajouté ou retiré une ligne dans l'appli, il n'est plus touché.
 insert into public.schedule as s (date, items) values
 ('2026-11-05', '[
-  {"id":"o1","time":"06:30","title":"Rendez-vous à l''aéroport d''Alger (dans l''aéroport Houari Boumediene : le staff vous contacte sur place)","important":true,"createdBy":"","group":1},
-  {"id":"o2","time":"09:40","title":"Envol d''Alger vers Istanbul (Air Algérie)","important":true,"createdBy":"","group":1},
-  {"id":"o3","time":"15:15","title":"Atterrissage à l''aéroport d''Istanbul, IST (heure locale : Alger + 2 h)","important":false,"createdBy":"","group":1},
-  {"id":"o4","time":"18:00","title":"Arrivée à l''hôtel (environ) et installation dans les chambres","important":true,"createdBy":"","group":1},
-  {"id":"o5","time":"19:00","title":"Soirée libre : repos ou sortie (idées dans l''onglet Carte, puis Programmes)","important":false,"createdBy":"","group":1},
-  {"id":"o6","time":"10:30","title":"Rendez-vous à l''aéroport d''Alger (dans l''aéroport Houari Boumediene : le staff vous contacte sur place)","important":true,"createdBy":"","group":2},
-  {"id":"o7","time":"12:55","title":"Envol d''Alger vers Istanbul (Pegasus Airlines)","important":true,"createdBy":"","group":2},
-  {"id":"o8","time":"18:30","title":"Atterrissage à l''aéroport Sabiha Gökçen, SAW (heure locale : Alger + 2 h)","important":false,"createdBy":"","group":2},
-  {"id":"o9","time":"22:00","title":"Arrivée à l''hôtel (environ) et installation dans les chambres : repos","important":true,"createdBy":"","group":2}
+  {"id":"o1","time":"06:30","title":"Rendez-vous à l''aéroport d''Alger (dans l''aéroport Houari Boumediene : le staff vous contacte sur place)","titleAr":"اللقاء في مطار الجزائر (داخل مطار هواري بومدين: سيتواصل معكم الفريق هناك)","important":true,"createdBy":"","group":1},
+  {"id":"o2","time":"09:40","title":"Envol d''Alger vers Istanbul (Air Algérie)","titleAr":"الإقلاع من الجزائر نحو إسطنبول (الخطوط الجوية الجزائرية)","important":true,"createdBy":"","group":1},
+  {"id":"o3","time":"15:15","title":"Atterrissage à l''aéroport d''Istanbul, IST (heure locale : Alger + 2 h)","titleAr":"الهبوط في مطار إسطنبول IST (التوقيت المحلي: توقيت الجزائر + ساعتان)","important":false,"createdBy":"","group":1},
+  {"id":"o4","time":"18:00","title":"Arrivée à l''hôtel (environ) et installation dans les chambres","titleAr":"الوصول إلى الفندق (تقريباً) والاستقرار في الغرف","important":true,"createdBy":"","group":1},
+  {"id":"o5","time":"19:00","title":"Soirée libre : repos ou sortie (idées dans l''onglet Carte, puis Idées de sorties)","titleAr":"سهرة حرة: راحة أو خروج (أفكار في تبويب «الخريطة» ثم «أفكار للخروج»)","important":false,"createdBy":"","group":1},
+  {"id":"o6","time":"10:30","title":"Rendez-vous à l''aéroport d''Alger (dans l''aéroport Houari Boumediene : le staff vous contacte sur place)","titleAr":"اللقاء في مطار الجزائر (داخل مطار هواري بومدين: سيتواصل معكم الفريق هناك)","important":true,"createdBy":"","group":2},
+  {"id":"o7","time":"12:55","title":"Envol d''Alger vers Istanbul (Pegasus Airlines)","titleAr":"الإقلاع من الجزائر نحو إسطنبول (بيغاسوس)","important":true,"createdBy":"","group":2},
+  {"id":"o8","time":"18:30","title":"Atterrissage à l''aéroport Sabiha Gökçen, SAW (heure locale : Alger + 2 h)","titleAr":"الهبوط في مطار صبيحة غوكتشن SAW (التوقيت المحلي: توقيت الجزائر + ساعتان)","important":false,"createdBy":"","group":2},
+  {"id":"o9","time":"22:00","title":"Arrivée à l''hôtel (environ) et installation dans les chambres : repos","titleAr":"الوصول إلى الفندق (تقريباً) والاستقرار في الغرف: راحة","important":true,"createdBy":"","group":2}
 ]'::jsonb),
 ('2026-11-06', '[
-  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel, puis le matin : Réunion Ultimate (formation) dans la salle de formation de l''hôtel (début entre 9h et 10h), jusqu''à 12:30 environ","important":true,"createdBy":""},
-  {"id":"o2","time":"13:00","title":"On sort de l''hôtel : balade du Bosphore, départ d''Eminönü","important":true,"createdBy":""},
-  {"id":"o3","time":"17:00","title":"Fin de la balade (environ) : temps libre, retour à l''hôtel avant 22:00 (idées dans l''onglet Carte)","important":false,"createdBy":""}
+  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel, puis le matin : Réunion Ultimate (formation) dans la salle de formation de l''hôtel (début entre 9h et 10h), jusqu''à 12:30 environ","titleAr":"الفطور مشمول في الفندق، ثم صباحاً: اجتماع Ultimate (التكوين) في قاعة التكوين بالفندق (البداية بين التاسعة والعاشرة)، إلى حوالي 12:30","important":true,"createdBy":""},
+  {"id":"o2","time":"13:00","title":"On sort de l''hôtel : balade du Bosphore, départ d''Eminönü","titleAr":"الخروج من الفندق: جولة البوسفور، الانطلاق من إمينونو (Eminönü)","important":true,"createdBy":""},
+  {"id":"o3","time":"17:00","title":"Fin de la balade (environ) : temps libre, retour à l''hôtel avant 22:00 (idées dans l''onglet Carte)","titleAr":"نهاية الجولة (تقريباً): وقت حر، العودة إلى الفندق قبل 22:00 (أفكار في تبويب «الخريطة»)","important":false,"createdBy":""}
 ]'::jsonb),
 ('2026-11-07', '[
-  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel, puis visite autour de la mosquée Sultan Ahmed (la Mosquée Bleue). L''heure du départ vous est donnée par le staff.","important":true,"createdBy":""}
+  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel, puis visite autour de la mosquée Sultan Ahmed (la Mosquée Bleue). L''heure du départ vous est donnée par le staff.","titleAr":"الفطور مشمول في الفندق، ثم جولة حول مسجد السلطان أحمد (المسجد الأزرق). يعلمكم الفريق بوقت الانطلاق.","important":true,"createdBy":""}
 ]'::jsonb),
 ('2026-11-08', '[
-  {"id":"o1","time":"—","title":"Journée libre ! Petit-déjeuner inclus à l''hôtel, puis à vous de choisir : 3 idées dans l''onglet Carte, puis Programmes. Retour à l''hôtel avant 22:00.","important":false,"createdBy":""}
+  {"id":"o1","time":"—","title":"Journée libre ! Petit-déjeuner inclus à l''hôtel, puis à vous de choisir : 3 idées dans l''onglet Carte, puis Idées de sorties. Retour à l''hôtel avant 22:00.","titleAr":"يوم حر! الفطور مشمول في الفندق، ثم الاختيار لكم: 3 أفكار في تبويب «الخريطة» ثم «أفكار للخروج». العودة إلى الفندق قبل 22:00.","important":false,"createdBy":""}
 ]'::jsonb),
 ('2026-11-09', '[
-  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel. L''heure du check-out et du départ pour l''aéroport vous est donnée par le staff.","important":true,"createdBy":"","group":1},
-  {"id":"o2","time":"20:30","title":"Envol d''Istanbul vers Alger (Air Algérie)","important":true,"createdBy":"","group":1},
-  {"id":"o3","time":"22:00","title":"Arrivée à Alger (heure locale)","important":false,"createdBy":"","group":1},
-  {"id":"o4","time":"05:00","title":"Check-out de l''hôtel avant 05:00 (préparez vos valises la veille), puis départ pour l''aéroport Sabiha Gökçen : l''heure exacte vous est donnée par le staff","important":true,"createdBy":"","group":2},
-  {"id":"o5","time":"09:45","title":"Envol d''Istanbul (Sabiha Gökçen) vers Alger (Pegasus Airlines)","important":true,"createdBy":"","group":2},
-  {"id":"o6","time":"11:35","title":"Arrivée à Alger (heure locale)","important":false,"createdBy":"","group":2}
+  {"id":"o1","time":"—","title":"Petit-déjeuner inclus à l''hôtel. L''heure du check-out et du départ pour l''aéroport vous est donnée par le staff.","titleAr":"الفطور مشمول في الفندق. يعلمكم الفريق بوقت مغادرة الفندق والتوجه إلى المطار.","important":true,"createdBy":"","group":1},
+  {"id":"o2","time":"20:30","title":"Envol d''Istanbul vers Alger (Air Algérie)","titleAr":"الإقلاع من إسطنبول نحو الجزائر (الخطوط الجوية الجزائرية)","important":true,"createdBy":"","group":1},
+  {"id":"o3","time":"22:00","title":"Arrivée à Alger (heure locale)","titleAr":"الوصول إلى الجزائر (التوقيت المحلي)","important":false,"createdBy":"","group":1},
+  {"id":"o4","time":"05:00","title":"Check-out de l''hôtel avant 05:00 (préparez vos valises la veille), puis départ pour l''aéroport Sabiha Gökçen : l''heure exacte vous est donnée par le staff","titleAr":"مغادرة الفندق قبل الساعة 05:00 (حضّروا حقائبكم في الليلة السابقة)، ثم التوجه إلى مطار صبيحة غوكتشن: يعلمكم الفريق بالوقت الدقيق","important":true,"createdBy":"","group":2},
+  {"id":"o5","time":"09:45","title":"Envol d''Istanbul (Sabiha Gökçen) vers Alger (Pegasus Airlines)","titleAr":"الإقلاع من إسطنبول (صبيحة غوكتشن) نحو الجزائر (بيغاسوس)","important":true,"createdBy":"","group":2},
+  {"id":"o6","time":"11:35","title":"Arrivée à Alger (heure locale)","titleAr":"الوصول إلى الجزائر (التوقيت المحلي)","important":false,"createdBy":"","group":2}
 ]'::jsonb)
 on conflict (date) do update
   set items = excluded.items, updated_at = now()
@@ -142,6 +142,26 @@ insert into public.places (id, category, name, description, address, phone, lat,
 ('t1', 'tool', 'BiTaksi', 'Application de taxi. Compteur allumé et adresse de l''hôtel en turc : « Lütfen beni bu otele götürün ».', null, null, null, null),
 ('t2', 'tool', 'Istanbulkart', 'Une seule carte pour le tram, le ferry et le métro, à recharger aux bornes automatiques.', null, null, null, null)
 on conflict (id) do nothing;
+
+-- Le guide en arabe (affiché quand l'appli est en arabe). Rempli seulement là où l'arabe est encore vide : vos modifications restent.
+update public.places p set name_ar = v.name_ar, description_ar = v.description_ar
+from (values
+  ('e1', 'الطوارئ (112)', 'رقم موحد في تركيا: الشرطة والإسعاف والإطفاء.'),
+  ('e2', 'الشرطة السياحية (السلطان أحمد)', 'مركز مخصص للسياح قرب آيا صوفيا. في حال السرقة أو أي مشكلة: اطلبوا المساعدة هناك أو اتصلوا بالرقم 112.'),
+  ('g1', 'فندقنا: Hampton by Hilton Istanbul Sirkeci', 'الفطور مشمول كل صباح. على بعد 3 دقائق مشياً من سوق التوابل و4 دقائق من محطة سيركجي.'),
+  ('g2', 'اجتماع Ultimate (التكوين)', 'الجمعة 6 نوفمبر، صباحاً (البداية بين التاسعة والعاشرة)، في قاعة التكوين بالفندق، إلى حوالي 12:30.'),
+  ('g3', 'جولة البوسفور (الانطلاق من إمينونو)', 'الجمعة 6 نوفمبر: نخرج من الفندق على الساعة 13:00، وتنطلق الجولة من إمينونو وتنتهي حوالي 17:00.'),
+  ('g4', 'جولة حول مسجد السلطان أحمد (المسجد الأزرق)', 'السبت 7 نوفمبر. لباس محتشم، وغطاء الرأس للسيدات، وخلع الأحذية عند الدخول. يعلمكم الفريق بوقت الانطلاق.'),
+  ('i1', 'الفطور مشمول', 'كل صباح في الفندق.'),
+  ('i2', 'قواعد المجموعة', 'ثلاثة أشخاص على الأقل خارج المنطقة الخضراء · العودة إلى الفندق قبل الساعة 22:00 · هاتف مشحون · مشاركة الموقع المباشر في مجموعة واتساب.'),
+  ('i3', 'التوقيت', 'إسطنبول = الجزائر + ساعتان.'),
+  ('i4', 'العملة', 'الليرة التركية (TRY). عندما يقترح جهاز الدفع بالبطاقة الدفع باليورو، اختاروا دائماً الليرة التركية.'),
+  ('i5', 'المقابس الكهربائية', 'النوع C/F، 230 فولت: مثل الجزائر.'),
+  ('t1', 'BiTaksi', 'تطبيق سيارات الأجرة. اطلبوا تشغيل العدّاد وأروا السائق عنوان الفندق بالتركية: « Lütfen beni bu otele götürün ».'),
+  ('t2', 'Istanbulkart', 'بطاقة واحدة للترامواي والعبّارة والمترو، تُشحن من الأجهزة الآلية.')
+) as v(id, name_ar, description_ar)
+where p.id = v.id and p.name_ar = '' and p.description_ar = '';
+update public.trip set name_ar = 'رحلة إسطنبول 2026' where id = 'current' and name_ar = '';
 
 -- ---------- vos codes ----------
 select code, value from (

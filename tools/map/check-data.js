@@ -139,6 +139,43 @@ if (data.officialProgram) {
   });
 }
 
+// --- Arabic: the app is bilingual, so every French text of the map needs its Arabic twin in istanbul-data.ar.json
+const arFile = path.join(__dirname, '..', '..', 'src', 'features', 'istanbul', 'istanbul-data.ar.json');
+if (!fs.existsSync(arFile)) {
+  err('istanbul-data.ar.json est introuvable (les textes arabes de la carte)');
+} else {
+  const ar = JSON.parse(fs.readFileSync(arFile, 'utf8'));
+  const need = (ok, what) => {
+    if (!ok) err(`arabe : ${what} n'a pas de traduction dans istanbul-data.ar.json`);
+  };
+  data.categories.forEach((c) => need(ar.categories?.[c.id], `catégorie « ${c.id} »`));
+  data.zones.forEach((z) => {
+    need(ar.zones?.[z.id]?.name, `nom de la zone « ${z.id} »`);
+    need(ar.zones?.[z.id]?.message, `message de la zone « ${z.id} »`);
+  });
+  data.transportStops.forEach((t) => need(ar.transportStops?.[t.id], `arrêt « ${t.id} »`));
+  data.safeAnchors.forEach((a) => need(ar.safeAnchors?.[a.name], `point de retour « ${a.name} »`));
+  need((ar.rules || []).length === data.rules.length, `les règles du groupe (${data.rules.length} attendues)`);
+  need(ar.emergency?.numberLabel && ar.emergency?.taxiPhraseFrench, 'les textes d’urgence');
+  data.emergency.staff.forEach((s) => s.role && need(ar.emergency?.staffRoles?.[s.role], `rôle « ${s.role} »`));
+  data.emergency.scams.forEach((s, i) => need(ar.emergency?.scams?.[i]?.title && ar.emergency?.scams?.[i]?.text, `arnaque n° ${i + 1} (${s.title})`));
+  data.places.forEach((p) => {
+    const x = ar.places?.[p.id];
+    need(x?.name, `nom du lieu « ${p.id} »`);
+    need(x?.description, `description du lieu « ${p.id} »`);
+    if (p.tip) need(x?.tip, `conseil du lieu « ${p.id} »`);
+  });
+  data.programs.forEach((p) => {
+    const x = ar.programs?.[p.id];
+    need(x?.title && x?.tagline && x?.mode, `titre / sous-titre / mode du programme « ${p.id} »`);
+    need((p.warnings || []).length === (x?.warnings || []).length, `avertissements du programme « ${p.id} » (${(p.warnings || []).length} attendus)`);
+    p.stops.forEach((s, i) => {
+      if (s.label) need(x?.stops?.[i]?.label, `étape ${i + 1} du programme « ${p.id} »`);
+      if (s.note) need(x?.stops?.[i]?.note, `note de l’étape ${i + 1} du programme « ${p.id} »`);
+    });
+  });
+}
+
 // --- emergency
 if (!data.emergency.number) err('emergency.number est vide');
 data.emergency.staff.forEach((c) => {

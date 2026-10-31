@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { I18nManager, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { useIsFocused } from '@react-navigation/native';
 import { ScreenContainer } from '../../components/ScreenContainer';
@@ -16,6 +16,7 @@ import { fonts, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { DmThreadParams } from '../../navigation/types';
 
+import { useLanguage } from '../../context/LanguageContext';
 interface Props {
   route: { params: DmThreadParams };
   navigation: { goBack: () => void };
@@ -25,6 +26,7 @@ interface Props {
 export function DmThreadScreen({ route, navigation }: Props) {
   const p = route.params;
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { profile } = useAuth();
   const { markThreadRead } = useUnread();
@@ -53,7 +55,7 @@ export function DmThreadScreen({ route, navigation }: Props) {
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Feather
-            name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+            name={isRTL ? 'arrow-right' : 'arrow-left'}
             size={18}
             color={colors.white}
           />

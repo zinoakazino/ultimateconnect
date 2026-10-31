@@ -1,5 +1,5 @@
 import React from 'react';
-import { I18nManager, Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { fonts, spacing } from '../theme';
 import type { Colors } from '../theme';
@@ -52,7 +52,7 @@ function makeStyles(colors: Colors) {
       borderRadius: 9,
       backgroundColor: colors.white,
     },
-    knobOn: I18nManager.isRTL ? { marginRight: 16 } : { marginLeft: 16 },
+    knobOn: { marginLeft: 16 },
     title: {
       fontFamily: fonts.bodyBold,
       fontSize: 12.5,

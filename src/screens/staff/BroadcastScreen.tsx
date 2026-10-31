@@ -7,6 +7,7 @@ import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
 import { SectionLabel } from '../../components/SectionLabel';
 import { ToggleRow } from '../../components/ToggleRow';
+import { HelpButton } from '../../components/GuideModal';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useConsultants } from '../../hooks/useConsultants';
@@ -101,7 +102,10 @@ export function BroadcastScreen() {
   return (
     <ScreenContainer>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('staffBroadcast.title')}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text style={styles.title}>{t('staffBroadcast.title')}</Text>
+          <HelpButton guide="broadcast" />
+        </View>
       </View>
       <ScrollView contentContainerStyle={styles.body} keyboardShouldPersistTaps="handled">
         {latestCheckin && (

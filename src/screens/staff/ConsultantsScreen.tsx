@@ -18,6 +18,8 @@ import { timeAgo, toDate } from '../../lib/dates';
 import { groupTag } from '../../lib/groups';
 import { callPhone, openInMaps } from '../../lib/maps';
 import { notifyUsers, setProfileGroup, setVerified } from '../../lib/api';
+import { bilingual } from '../../lib/localized';
+import { HelpButton } from '../../components/GuideModal';
 import { dmThreadId } from '../../types/models';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
@@ -77,7 +79,7 @@ export function ConsultantsScreen({ navigation }: Props) {
     setProfileGroup(c.uid, groupId)
       .then(() =>
         groupId != null
-          ? notifyUsers([c.uid], 'schedule', t('staffConsultants.groupChangedNotice', { n: groupId }))
+          ? notifyUsers([c.uid], 'schedule', bilingual('staffConsultants.groupChangedNotice', { n: groupId }))
           : undefined
       )
       .catch(() => {});
@@ -207,6 +209,7 @@ export function ConsultantsScreen({ navigation }: Props) {
         <Text style={styles.count}>
           {consultants.length} {t('staffConsultants.totalSuffix')}
         </Text>
+        <HelpButton guide="staffPeople" style={{ alignSelf: 'center' }} />
         <Pressable
           style={styles.mapLink}
           onPress={() => navigation.navigate('IstanbulMap')}

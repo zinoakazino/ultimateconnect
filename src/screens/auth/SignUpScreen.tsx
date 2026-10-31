@@ -15,6 +15,7 @@ import { ScreenContainer } from '../../components/ScreenContainer';
 import { Wordmark } from '../../components/Wordmark';
 import { FormField } from '../../components/FormField';
 import { Button } from '../../components/Button';
+import { LanguageSwitch } from '../../components/LanguageSwitch';
 import { Card } from '../../components/Card';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -102,6 +103,7 @@ export function SignUpScreen({ navigation }: Props) {
         style={styles.flex}
       >
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
+          <LanguageSwitch style={styles.langSwitch} />
           <Wordmark width={170} style={styles.brand} />
           <Text style={styles.title}>{t('auth.createAccountTitle')}</Text>
           <Text style={styles.sub}>{t('auth.joinTeam')}</Text>
@@ -234,6 +236,7 @@ function makeStyles(colors: Colors) {
       padding: spacing.xxl,
       paddingTop: spacing.xxxl,
     },
+    langSwitch: { alignSelf: 'flex-end', marginBottom: spacing.md },
     brand: { alignSelf: 'center', marginBottom: spacing.lg },
     title: {
       fontFamily: fonts.display,

@@ -88,7 +88,7 @@
     "greeting": "Bonjour {{name}}",
     "confirmed": "C'est confirmé !",
     "daysToGo": "JOURS RESTANTS",
-    "todaySchedule": "Programme du jour",
+    "todaySchedule": "Programme officiel du jour",
     "noSchedule": "Rien de prévu aujourd'hui pour le moment.",
     "reminderPrefix": "Rappel : ",
     "openChat": "Ouvrir le chat",
@@ -104,7 +104,12 @@
     "helpCancel": "Annuler",
     "helpSent": "Alerte envoyée — le staff est prévenu.",
     "helpFailed": "Échec de l'envoi. Appelez le staff directement.",
-    "fullSchedule": "Voir tout le programme du voyage"
+    "fullSchedule": "Voir tout le programme officiel",
+    "officialHint": "Fixé par l'équipe : tout le groupe y participe.",
+    "ideasTitle": "Idées pour vos temps libres",
+    "ideasHint": "Facultatif : nos suggestions, calées sur votre programme officiel.",
+    "ideasMore": "Toutes les idées de sorties",
+    "ideasNoneToday": "Pas de temps libre prévu aujourd'hui. Toutes les idées sont dans l'onglet Carte."
   },
   "chat": {
     "groupDefault": "Discussion de groupe",
@@ -143,7 +148,7 @@
   "tripGuide": {
     "title": "Guide du voyage",
     "emergency": "Urgences et contacts",
-    "groupItinerary": "Programme du groupe",
+    "groupItinerary": "Programme officiel",
     "onYourOwn": "En solo",
     "restaurants": "Restaurants",
     "shopping": "Shopping",
@@ -155,17 +160,18 @@
     "empty": "Le staff n'a pas encore ajouté de lieux — revenez bientôt."
   },
   "staffSchedule": {
-    "title": "Programme du jour",
+    "title": "Programme officiel du jour",
     "addPlaceholder": "Que se passe-t-il ?",
     "markImportant": "Marquer comme important",
     "markImportantSub": "Épingle en haut de l'accueil et prévient dans les alertes",
     "publish": "Publier",
     "publishAll": "Publier pour les {{count}} consultants",
-    "updatedNotice": "Le programme du {{date}} a été mis à jour",
+    "updatedNotice": "Le programme officiel du {{date}} a été mis à jour",
     "empty": "Aucun élément au programme pour ce jour.",
     "forWho": "Pour qui ?",
     "everyone": "Tout le monde",
-    "groupOnly": "Groupe {{n}} seulement"
+    "groupOnly": "Groupe {{n}} seulement",
+    "addPlaceholderAr": "Titre en arabe (facultatif)"
   },
   "staffConsultants": {
     "title": "Consultants",
@@ -248,7 +254,10 @@
     "confirmDelete": "Confirmer la suppression",
     "inviteCode": "Code d'invitation",
     "inviteCodeHelp": "Les nouveaux consultants doivent saisir ce code pour s'inscrire.",
-    "inviteCodeMissing": "Aucun code d'invitation n'est défini : personne ne peut encore s'inscrire. Saisissez un code puis enregistrez."
+    "inviteCodeMissing": "Aucun code d'invitation n'est défini : personne ne peut encore s'inscrire. Saisissez un code puis enregistrez.",
+    "nameAr": "Nom en arabe (facultatif)",
+    "descriptionAr": "Description en arabe (facultatif)",
+    "tripNameAr": "Nom du voyage en arabe (facultatif)"
   },
   "nav": {
     "home": "Accueil",
@@ -263,7 +272,7 @@
   "map": {
     "title": "Carte Istanbul",
     "segMap": "Carte",
-    "segPrograms": "Programmes",
+    "segPrograms": "Idées de sorties",
     "all": "Tout",
     "locate": "Où suis-je ?",
     "locating": "Localisation…",
@@ -291,8 +300,50 @@
     "zoneRadius": "Rayon : {{km}} km autour de l'hôtel.",
     "hotel": "Votre hôtel",
     "stopsCount": "{{count}} étapes",
-    "programsIntro": "Choisissez un programme pour chaque journée libre : il s'affiche sur la carte avec les étapes numérotées.",
-    "consultantsOnMap": "Consultants ({{count}})"
+    "programsIntro": "Nos idées pour vos temps libres (facultatif). Choisissez-en une pour chaque journée libre : elle s'affiche sur la carte avec les étapes numérotées. Le programme officiel est sur l'accueil.",
+    "consultantsOnMap": "Consultants ({{count}})",
+    "hotelWord": "Hôtel",
+    "theHotel": "l'hôtel",
+    "zoneLabel": {
+      "verte": "Zone verte",
+      "orange": "Zone orange",
+      "eviter": "À éviter",
+      "prudence": "Prudence"
+    },
+    "access": {
+      "verte": "Zone verte · à pied",
+      "orange": "Zone orange · en transport, en groupe",
+      "staff": "Uniquement avec le staff"
+    },
+    "notice": {
+      "avoid": {
+        "title": "Vous êtes dans une zone à éviter ({{names}})",
+        "text": "Revenez vers {{anchor}} ou prenez un taxi. {{messages}}"
+      },
+      "outside": {
+        "title": "Vous êtes hors de la zone autorisée",
+        "text": "Contactez le staff."
+      },
+      "caution": {
+        "title": "Prudence : {{name}}",
+        "text": "{{message}}"
+      },
+      "orange": {
+        "title": "Vous êtes hors de la zone verte",
+        "text": "Ici : uniquement en transport (tram, ferry, métro), en groupe de 3 minimum, retour à l’hôtel avant 22h."
+      },
+      "ok": {
+        "title": "Vous êtes dans la zone verte",
+        "text": "Vous pouvez circuler librement à pied. Restez sur les rues principales le soir."
+      }
+    },
+    "staff": {
+      "avoid": "Dans une zone à éviter : {{names}}.",
+      "outside": "Hors de la zone autorisée, à {{distance}} de l'hôtel.",
+      "orange": "Hors de la zone verte, à {{distance}} de l'hôtel.",
+      "green": "Dans la zone verte, à {{distance}} de l'hôtel.",
+      "caution": "Zone de prudence : {{names}}."
+    }
   },
   "emergency": {
     "title": "Urgence",
@@ -307,10 +358,202 @@
     "offline": "Cet écran fonctionne sans connexion."
   },
   "schedule": {
-    "fullTitle": "Programme du voyage",
+    "fullTitle": "Programme officiel du voyage",
     "today": "Aujourd'hui",
     "empty": "Le programme n'a pas encore été publié.",
     "forGroup": "Programme du groupe {{n}}",
-    "allGroups": "Les lignes marquées G1 / G2 ne concernent que ce groupe."
+    "allGroups": "Les lignes marquées G1 / G2 ne concernent que ce groupe.",
+    "officialHint": "Le programme fixé par l'équipe : tout le groupe y participe. Pour vos temps libres, voyez les idées de sorties dans l'onglet Carte."
+  },
+  "guide": {
+    "help": "Aide",
+    "next": "Suivant",
+    "back": "Précédent",
+    "done": "C'est compris",
+    "skip": "Passer",
+    "stepOf": "{{n}} sur {{total}}",
+    "replay": "Revoir le guide",
+    "replaySub": "Une visite de l'appli en quelques écrans",
+    "welcomeConsultant": {
+      "steps": [
+        {
+          "icon": "smile",
+          "title": "Bienvenue dans Ultimate Connect",
+          "body": "Votre compagnon pour le voyage à Istanbul : vos vols, le programme, la carte, le chat avec le groupe et l'équipe. Ce guide dure une minute. Vous pourrez le revoir quand vous voulez avec le bouton « ? » ou depuis votre profil."
+        },
+        {
+          "icon": "send",
+          "title": "Vos vols",
+          "body": "Sur l'accueil, la carte « Vos vols » donne les horaires de VOTRE groupe : rendez-vous à l'aéroport, vols aller et retour, bagages, arrivée à l'hôtel et check-out. Si l'équipe change votre groupe, vous êtes prévenu."
+        },
+        {
+          "icon": "calendar",
+          "title": "Le programme officiel",
+          "body": "C'est le programme fixé par l'équipe : tout le groupe y participe (formation, balade du Bosphore, visite de la mosquée…). Le jour même sur l'accueil, et tout le voyage avec « Voir tout le programme officiel »."
+        },
+        {
+          "icon": "map",
+          "title": "Les idées de sorties",
+          "body": "Pour vos temps libres, l'onglet Carte propose des idées facultatives avec les étapes numérotées. Les zones de couleur montrent où aller : vert = à pied, orange = en transport et en groupe de 3, rouge = à éviter."
+        },
+        {
+          "icon": "message-circle",
+          "title": "Chat et alertes",
+          "body": "Le chat réunit tout le groupe et l'équipe. La cloche annonce les changements de programme et les messages importants. Quand l'équipe lance une confirmation de présence, touchez « Je suis là »."
+        },
+        {
+          "icon": "shield",
+          "title": "Votre sécurité",
+          "body": "« Urgence » donne les numéros utiles et l'adresse de l'hôtel pour le taxi, même sans internet. « Besoin d'aide ? » prévient l'équipe avec votre position. Règles : 3 minimum hors zone verte, retour à l'hôtel avant 22h."
+        },
+        {
+          "icon": "globe",
+          "title": "Votre langue",
+          "body": "Passez du français à l'arabe (العربية) quand vous voulez : depuis l'écran de connexion ou votre profil. Tout change immédiatement."
+        }
+      ]
+    },
+    "welcomeStaff": {
+      "steps": [
+        {
+          "icon": "smile",
+          "title": "Bienvenue dans l'espace équipe",
+          "body": "Voici en quelques écrans ce que vous pouvez faire. Ce guide se rouvre à tout moment avec le bouton « ? » ou depuis votre profil."
+        },
+        {
+          "icon": "calendar",
+          "title": "Le programme officiel",
+          "body": "Onglet Programme : ajoutez les lignes de chaque jour. « Pour qui ? » limite une ligne à un groupe (vols, arrivée à l'hôtel). « Important » l'épingle sur l'accueil et envoie une alerte. Le titre en arabe est facultatif."
+        },
+        {
+          "icon": "users",
+          "title": "Les personnes",
+          "body": "L'onglet Personnes montre qui s'est inscrit et qui ne l'est pas encore, le groupe de chacun (touchez le badge pour le changer : la personne est prévenue), et les vols des deux groupes."
+        },
+        {
+          "icon": "radio",
+          "title": "Annonces et présence",
+          "body": "Onglet Notifier : écrivez à tout le monde ou à certaines personnes, épinglez au programme, ou lancez une confirmation de présence et suivez qui a répondu « Je suis là »."
+        },
+        {
+          "icon": "message-circle",
+          "title": "Chat et alertes SOS",
+          "body": "Le chat du groupe (vous pouvez le fermer) et les messages privés. Une demande d'aide d'un participant apparaît en rouge sous Personnes, avec son téléphone et sa position."
+        },
+        {
+          "icon": "user",
+          "title": "Votre profil",
+          "body": "Vous y trouvez vos vols, le code d'invitation des participants, la gestion du voyage et du guide, et le choix de la langue. Ne communiquez le code qu'aux participants."
+        }
+      ]
+    },
+    "home": {
+      "steps": [
+        {
+          "icon": "send",
+          "title": "Vos vols et votre programme",
+          "body": "« Vos vols » : les horaires de votre groupe. Plus bas, le programme officiel du jour, fixé par l'équipe : tout le groupe y participe."
+        },
+        {
+          "icon": "sun",
+          "title": "Idées pour vos temps libres",
+          "body": "La partie « Idées » est facultative : ce sont nos suggestions, calées sur votre programme. Touchez « Toutes les idées de sorties » pour les voir sur la carte."
+        },
+        {
+          "icon": "check-circle",
+          "title": "Présence et aide",
+          "body": "Quand une confirmation de présence apparaît, touchez « Je suis là ». « Besoin d'aide ? » prévient l'équipe avec votre position. « Urgence » marche sans internet."
+        }
+      ]
+    },
+    "map": {
+      "steps": [
+        {
+          "icon": "map",
+          "title": "La carte et ses zones",
+          "body": "Le cercle vert = zone où vous marchez librement. Orange = en transport et en groupe de 3 minimum. Rouge = à éviter. « Où suis-je ? » vous dit dans quelle zone vous êtes."
+        },
+        {
+          "icon": "sun",
+          "title": "Idées de sorties (facultatif)",
+          "body": "L'onglet « Idées de sorties » propose un parcours pour chaque temps libre : choisissez-en un, ses étapes numérotées s'affichent sur la carte. Rien d'obligatoire : le programme officiel est sur l'accueil."
+        },
+        {
+          "icon": "alert-triangle",
+          "title": "Urgence",
+          "body": "Le bouton « Urgence » ouvre le 112, l'adresse de l'hôtel à montrer au taxi et les numéros de l'équipe, même sans connexion."
+        }
+      ]
+    },
+    "chat": {
+      "steps": [
+        {
+          "icon": "message-circle",
+          "title": "Le chat du groupe",
+          "body": "Tout le groupe et l'équipe s'y écrivent. L'équipe peut le fermer un moment : vous le verrez écrit en haut."
+        },
+        {
+          "icon": "mail",
+          "title": "Messages privés",
+          "body": "Pour parler à un membre de l'équipe, utilisez la liste des messages privés : l'équipe ouvre la conversation, puis vous pouvez répondre."
+        }
+      ]
+    },
+    "alerts": {
+      "steps": [
+        {
+          "icon": "bell",
+          "title": "Vos alertes",
+          "body": "Ici arrivent les changements de programme, les rappels importants et les annonces de l'équipe. Une pastille rouge indique ce que vous n'avez pas encore lu."
+        }
+      ]
+    },
+    "staffSchedule": {
+      "steps": [
+        {
+          "icon": "calendar",
+          "title": "Programme officiel du jour",
+          "body": "Choisissez le jour avec les flèches, ajoutez une heure et un texte, puis « Publier » : tout le monde le voit."
+        },
+        {
+          "icon": "users",
+          "title": "Pour qui ?",
+          "body": "« Tout le monde », ou un seul groupe : utile pour les vols et l'arrivée à l'hôtel, qui diffèrent. Chaque personne ne voit que sa partie."
+        },
+        {
+          "icon": "bookmark",
+          "title": "Important et arabe",
+          "body": "« Marquer comme important » épingle la ligne sur l'accueil et envoie une alerte (aux bonnes personnes). Le titre en arabe est facultatif : sans lui, c'est le français qui s'affiche."
+        }
+      ]
+    },
+    "staffPeople": {
+      "steps": [
+        {
+          "icon": "users",
+          "title": "Groupes et inscriptions",
+          "body": "« N sur 21 inscrits » : touchez pour voir qui n'a pas encore ouvert son compte. Les filtres montrent un groupe à la fois. Touchez le badge d'une personne pour changer son groupe."
+        },
+        {
+          "icon": "send",
+          "title": "Vols des groupes",
+          "body": "« Vols des groupes » déplie les horaires des deux groupes : utile pour organiser les transferts depuis l'aéroport."
+        }
+      ]
+    },
+    "broadcast": {
+      "steps": [
+        {
+          "icon": "radio",
+          "title": "Annonces",
+          "body": "Écrivez un message à tout le monde ou à des personnes choisies. Vous pouvez l'épingler au programme et suivre qui l'a lu."
+        },
+        {
+          "icon": "check-circle",
+          "title": "Confirmation de présence",
+          "body": "Cochez « Demander une confirmation de présence » : chaque participant voit un bouton « Je suis là » et vous suivez le décompte en direct."
+        }
+      ]
+    }
   }
 }

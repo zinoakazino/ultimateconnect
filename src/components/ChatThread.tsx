@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   FlatList,
-  I18nManager,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -17,6 +16,7 @@ import { fonts, radii, spacing } from '../theme';
 import type { Colors } from '../theme';
 import type { MessageDoc } from '../types/models';
 
+import { useLanguage } from '../context/LanguageContext';
 interface ChatThreadProps {
   messages: MessageDoc[];
   currentUid: string;
@@ -28,6 +28,7 @@ interface ChatThreadProps {
 export function ChatThread({ messages, currentUid, locked, lockedMessage, onSend }: ChatThreadProps) {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
@@ -84,7 +85,7 @@ export function ChatThread({ messages, currentUid, locked, lockedMessage, onSend
           />
           <Pressable style={styles.sendBtn} onPress={handleSend} disabled={sending}>
             <Feather
-              name={I18nManager.isRTL ? 'arrow-left' : 'arrow-right'}
+              name={isRTL ? 'arrow-left' : 'arrow-right'}
               size={16}
               color={colors.white}
             />
@@ -108,7 +109,7 @@ function MessageBubble({
   const styles = makeStyles(colors);
   const isStaff = message.senderRole === 'staff';
   // "Mine" aligns to the end of the reading direction: right in LTR, left in RTL.
-  const mineFlexDirection = I18nManager.isRTL ? 'row' : 'row-reverse';
+  const mineFlexDirection = 'row-reverse';
   return (
     <View style={[styles.row, isMine && { flexDirection: mineFlexDirection }]}>
       {!isMine && (

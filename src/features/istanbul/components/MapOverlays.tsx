@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../context/ThemeContext';
 import { fonts, radii, spacing } from '../../../theme';
 import type { Colors } from '../../../theme';
-import { istanbul, ZONE_STYLE } from '../data';
-import { circleRadii, formatDistance, type LocationStatus } from '../geo';
+import { useIstanbul, ZONE_STYLE } from '../data';
+import { circleRadii, formatDistance, type LocationNotice, type LocationStatus } from '../geo';
 
 const RED = '#DC2626';
 const AMBER = '#D97706';
@@ -70,6 +70,10 @@ export function LocationBanner({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
+  // the "where am I" messages are said in the app's language, from their code
+  const noticeTitle = (n: LocationNotice) => (n.code ? t(`map.notice.${n.code}.title`, n.params) : n.title);
+  const noticeText = (n: LocationNotice) =>
+    n.code ? t(`map.notice.${n.code}.text`, { ...n.params, anchor: n.params?.anchor || t('map.theHotel') }) : n.text;
   const { colors, mode } = useTheme();
   const dark = mode === 'dark';
   const tone = {
@@ -93,7 +97,7 @@ export function LocationBanner({
             >
               <Feather name={c.icon} size={15} color={c.bar} />
               <Text style={[bannerStyles.compactText, { color: c.title }]} numberOfLines={2}>
-                {n.title}
+                {noticeTitle(n)}
               </Text>
             </View>
           );
@@ -106,8 +110,8 @@ export function LocationBanner({
           >
             <Feather name={c.icon} size={20} color={c.bar} style={bannerStyles.icon} />
             <View style={bannerStyles.texts}>
-              <Text style={[bannerStyles.title, { color: c.title }]}>{n.title}</Text>
-              <Text style={[bannerStyles.text, { color: colors.ink }]}>{n.text}</Text>
+              <Text style={[bannerStyles.title, { color: c.title }]}>{noticeTitle(n)}</Text>
+              <Text style={[bannerStyles.text, { color: colors.ink }]}>{noticeText(n)}</Text>
               <Text style={[bannerStyles.meta, { color: colors.inkSoft }]}>
                 {t('map.distanceFromHotel', { distance: formatDistance(status.distanceToHotel) })}
                 {' · '}
@@ -169,6 +173,7 @@ const bannerStyles = StyleSheet.create({
 /** Collapsible legend of zone colors and place categories. */
 export function Legend() {
   const { t } = useTranslation();
+  const { data: istanbul } = useIstanbul();
   const { colors } = useTheme();
   const [open, setOpen] = useState(false);
   const styles = makeLegendStyles(colors);
@@ -276,6 +281,7 @@ function makeLegendStyles(colors: Colors) {
 /** "Règles du groupe": the four rules everyone follows. */
 export function RulesCard({ compact }: { compact?: boolean }) {
   const { t } = useTranslation();
+  const { data: istanbul } = useIstanbul();
   const { colors } = useTheme();
   const styles = makeRulesStyles(colors);
   return (

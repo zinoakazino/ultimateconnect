@@ -10,7 +10,8 @@ import { usePlaces } from '../../hooks/usePlaces';
 import { callPhone, openDirections } from '../../lib/maps';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
-import { getPlace, istanbul } from './data';
+import { useIstanbul } from './data';
+import { pickText } from '../../lib/localized';
 import { RulesCard } from './components/MapOverlays';
 
 const RED = '#DC2626';
@@ -21,13 +22,14 @@ const RED = '#DC2626';
  * and the usual tourist scams. All of it comes from the bundled istanbul-data.json.
  */
 export function EmergencyScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
   const styles = makeStyles(colors);
   const navigation = useNavigation<any>();
   const { places } = usePlaces();
   const [copied, setCopied] = useState(false);
 
+  const { data: istanbul, getPlace } = useIstanbul();
   const { emergency, hotel } = istanbul;
   const police = getPlace('police-touristique');
   // Contacts the staff manage in the app itself (Gérer le voyage → Urgences et contacts).
@@ -144,7 +146,7 @@ export function EmergencyScreen() {
                 <Feather name="phone" size={15} color="#FFFFFF" />
               </View>
               <View style={styles.contactTexts}>
-                <Text style={styles.contactName}>{p.name}</Text>
+                <Text style={styles.contactName}>{pickText(p.name, p.nameAr, i18n.language)}</Text>
               </View>
               <Pressable
                 onPress={() => callPhone(p.phone as string)}

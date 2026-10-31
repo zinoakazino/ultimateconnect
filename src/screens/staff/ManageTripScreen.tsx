@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import type { Colors } from '../../theme';
 import type { StaffStackParamList } from '../../navigation/types';
 import { GUIDE_SECTIONS } from '../consultant/TripGuideScreen';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = NativeStackScreenProps<StaffStackParamList, 'ManageTrip'>;
 
 function parseDay(value: string): Date | null {
@@ -31,11 +32,13 @@ function parseDay(value: string): Date | null {
 export function ManageTripScreen({ navigation }: Props) {
   const { t } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { trip } = useTrip();
   const { places } = usePlaces();
 
   const [name, setName] = useState('');
+  const [nameAr, setNameAr] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [hydrated, setHydrated] = useState(false);
@@ -48,6 +51,7 @@ export function ManageTripScreen({ navigation }: Props) {
     const s = toDate(trip.startDate);
     const e = toDate(trip.endDate);
     setName(trip.name ?? '');
+    setNameAr(trip.nameAr ?? '');
     setStartDate(s ? todayKey(s) : '');
     setEndDate(e ? todayKey(e) : '');
     setHydrated(true);
@@ -72,7 +76,7 @@ export function ManageTripScreen({ navigation }: Props) {
     setSaving(true);
     setMessage(null);
     try {
-      await saveTrip({ name: name.trim(), startDate: start, endDate: end });
+      await saveTrip({ name: name.trim(), nameAr: nameAr.trim(), startDate: start, endDate: end });
       setMessage({ text: t('manage.saved'), ok: true });
     } catch {
       setMessage({ text: t('auth.errorGeneric'), ok: false });
@@ -86,7 +90,7 @@ export function ManageTripScreen({ navigation }: Props) {
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Feather
-            name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+            name={isRTL ? 'arrow-right' : 'arrow-left'}
             size={18}
             color={colors.ink}
           />
@@ -98,6 +102,7 @@ export function ManageTripScreen({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <SectionLabel style={styles.firstLabel}>{t('manage.tripSection')}</SectionLabel>
         <FormField label={t('manage.tripName')} value={name} onChangeText={setName} />
+        <FormField label={t('manage.tripNameAr')} value={nameAr} onChangeText={setNameAr} />
         <View style={styles.dateRow}>
           <View style={styles.dateCol}>
             <FormField
@@ -148,7 +153,7 @@ export function ManageTripScreen({ navigation }: Props) {
                   {place.name}
                 </Text>
                 <Feather
-                  name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'}
+                  name={isRTL ? 'chevron-left' : 'chevron-right'}
                   size={16}
                   color={colors.inkSoft}
                 />

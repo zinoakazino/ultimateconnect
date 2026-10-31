@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import Feather from '@expo/vector-icons/Feather';
 import type { CompositeScreenProps } from '@react-navigation/native';
@@ -12,6 +12,7 @@ import { EmergencyButton } from '../../features/istanbul/components/MapOverlays'
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
 import { FlightsCard } from '../../components/FlightsCard';
+import { HelpButton } from '../../components/GuideModal';
 import { SectionLabel } from '../../components/SectionLabel';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -20,15 +21,18 @@ import { useTrip } from '../../hooks/useTrip';
 import { useMyGroup } from '../../hooks/useTripGroups';
 import { useTodaySchedule } from '../../hooks/useTodaySchedule';
 import { groupTag } from '../../lib/groups';
+import { pickText } from '../../lib/localized';
 import { usePlaces } from '../../hooks/usePlaces';
 import { answerCheckin, useLatestCheckin, useMyCheckinResponse } from '../../hooks/useCheckin';
 import { createHelpRequest } from '../../hooks/useHelpRequests';
-import { toDate, formatDateRange, daysUntil } from '../../lib/dates';
+import { toDate, formatDateRange, daysUntil, todayKey } from '../../lib/dates';
+import { useIstanbul } from '../../features/istanbul/data';
 import { callPhone, openInMaps } from '../../lib/maps';
 import { fonts, radii, spacing } from '../../theme';
 import type { Colors } from '../../theme';
 import type { ConsultantStackParamList, ConsultantTabParamList } from '../../navigation/types';
 
+import { useLanguage } from '../../context/LanguageContext';
 type Props = CompositeScreenProps<
   BottomTabScreenProps<ConsultantTabParamList, 'Home'>,
   NativeStackScreenProps<ConsultantStackParamList>
@@ -37,13 +41,20 @@ type Props = CompositeScreenProps<
 type HelpStep = 'idle' | 'confirm' | 'sending' | 'sent' | 'error';
 
 export function HomeScreen({ navigation }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
+  const { isRTL } = useLanguage();
   const styles = makeStyles(colors);
   const { profile } = useAuth();
   const { trip } = useTrip();
   const { items, pinned } = useTodaySchedule();
   const { group, groups } = useMyGroup();
+  // the ideas we suggest for today's free time (only those made for this person's own group)
+  const { data: istanbul } = useIstanbul();
+  const myGroup = profile?.groupId ?? null;
+  const todayIdeas = istanbul.programs.filter(
+    (p) => p.day === todayKey() && (p.group == null || myGroup == null || p.group === myGroup)
+  );
   const { notificationsUnread } = useUnread();
   const { places } = usePlaces();
   const checkin = useLatestCheckin();
@@ -111,6 +122,7 @@ export function HomeScreen({ navigation }: Props) {
           <Wordmark width={92} />
           <View style={styles.topActions}>
             <EmergencyButton />
+            <HelpButton guide="home" />
             <Pressable style={styles.bell} onPress={() => navigation.navigate('Alerts')}>
               <Feather name="bell" size={16} color={colors.greenDeep} />
               {notificationsUnread > 0 && <View style={styles.bellDot} />}
@@ -134,7 +146,7 @@ export function HomeScreen({ navigation }: Props) {
                 <Feather name="check" size={16} color={colors.white} />
               </View>
               <View>
-                <Text style={styles.confirmT1}>{trip.name}</Text>
+                <Text style={styles.confirmT1}>{pickText(trip.name, trip.nameAr, i18n.language)}</Text>
                 <Text style={styles.confirmT2}>{t('home.confirmed')}</Text>
               </View>
             </View>
@@ -186,6 +198,7 @@ export function HomeScreen({ navigation }: Props) {
         )}
 
         <SectionLabel>{t('home.todaySchedule')}</SectionLabel>
+        <Text style={styles.sectionHint}>{t('home.officialHint')}</Text>
         {items.length === 0 ? (
           <Text style={styles.emptyText}>{t('home.noSchedule')}</Text>
         ) : (
@@ -194,7 +207,7 @@ export function HomeScreen({ navigation }: Props) {
               <Text style={styles.schedTime}>{item.time}</Text>
               <Text style={styles.schedTitle}>
                 {item.group != null && profile?.groupId == null ? `${groupTag(item.group)} · ` : ''}
-                {item.title}
+                {pickText(item.title, item.titleAr, i18n.language)}
               </Text>
             </View>
           ))
@@ -202,7 +215,7 @@ export function HomeScreen({ navigation }: Props) {
 
         <Pressable style={styles.fullScheduleLink} onPress={() => navigation.navigate('TripSchedule')} hitSlop={6}>
           <Text style={styles.fullScheduleText}>{t('home.fullSchedule')}</Text>
-          <Feather name={I18nManager.isRTL ? 'chevron-left' : 'chevron-right'} size={16} color={colors.green} />
+          <Feather name={isRTL ? 'chevron-left' : 'chevron-right'} size={16} color={colors.green} />
         </Pressable>
 
         {pinned && (
@@ -210,10 +223,40 @@ export function HomeScreen({ navigation }: Props) {
             <Feather name="bookmark" size={14} color={colors.greenDeep} style={styles.pinIcon} />
             <Text style={styles.pinText}>
               {t('home.reminderPrefix')}
-              {pinned.title}
+              {pickText(pinned.title, pinned.titleAr, i18n.language)}
             </Text>
           </Card>
         )}
+
+        <Card variant="pale" noShadow style={styles.ideasCard}>
+          <Text style={styles.ideasLabel}>{t('home.ideasTitle')}</Text>
+          <Text style={styles.ideasHint}>{t('home.ideasHint')}</Text>
+          {todayIdeas.length === 0 ? (
+            <Text style={styles.ideasNone}>{t('home.ideasNoneToday')}</Text>
+          ) : (
+            todayIdeas.map((p) => (
+              <Pressable
+                key={p.id}
+                style={styles.ideaRow}
+                onPress={() => navigation.navigate('Map', { programId: p.id })}
+                accessibilityRole="button"
+              >
+                <Feather name="sun" size={15} color={colors.greenDeep} />
+                <View style={styles.ideaTexts}>
+                  <Text style={styles.ideaTitle}>{p.title}</Text>
+                  <Text style={styles.ideaTagline} numberOfLines={2}>
+                    {p.tagline}
+                  </Text>
+                </View>
+                <Feather name={isRTL ? 'chevron-left' : 'chevron-right'} size={16} color={colors.greenDeep} />
+              </Pressable>
+            ))
+          )}
+          <Pressable style={styles.ideasMore} onPress={() => navigation.navigate('Map')} hitSlop={6}>
+            <Text style={styles.ideasMoreText}>{t('home.ideasMore')}</Text>
+            <Feather name={isRTL ? 'chevron-left' : 'chevron-right'} size={16} color={colors.greenDeep} />
+          </Pressable>
+        </Card>
 
         <View style={styles.quickRow}>
           <Button
@@ -235,10 +278,10 @@ export function HomeScreen({ navigation }: Props) {
             {contacts.map((c) => (
               <View key={c.id} style={styles.contactRow}>
                 <View style={styles.contactInfo}>
-                  <Text style={styles.contactName}>{c.name}</Text>
+                  <Text style={styles.contactName}>{pickText(c.name, c.nameAr, i18n.language)}</Text>
                   {c.description ? (
                     <Text style={styles.contactDesc} numberOfLines={1}>
-                      {c.description}
+                      {pickText(c.description, c.descriptionAr, i18n.language)}
                     </Text>
                   ) : null}
                 </View>
@@ -254,7 +297,7 @@ export function HomeScreen({ navigation }: Props) {
                 ) : (c.lat !== undefined && c.lng !== undefined) || c.address ? (
                   <Pressable
                     style={styles.contactBtn}
-                    onPress={() => openInMaps({ lat: c.lat, lng: c.lng, address: c.address, label: c.name })}
+                    onPress={() => openInMaps({ lat: c.lat, lng: c.lng, address: c.address, label: pickText(c.name, c.nameAr, i18n.language) })}
                     hitSlop={8}
                   >
                     <Feather name="navigation" size={14} color={colors.greenDeep} />
@@ -352,7 +395,7 @@ function makeStyles(colors: Colors) {
     mapBtn: {
       position: 'absolute',
       top: spacing.md,
-      [I18nManager.isRTL ? 'left' : 'right']: spacing.md,
+      right: spacing.md,
       width: 30,
       height: 30,
       borderRadius: 15,
@@ -415,6 +458,60 @@ function makeStyles(colors: Colors) {
       color: 'rgba(255,255,255,0.75)',
       marginTop: 1,
     },
+    sectionHint: {
+      fontFamily: fonts.body,
+      fontSize: 11.5,
+      color: colors.inkSoft,
+      marginTop: -4,
+      marginBottom: spacing.xs,
+    },
+    ideasCard: {
+      marginTop: spacing.lg,
+      borderRadius: radii.xl,
+    },
+    ideasLabel: {
+      fontFamily: fonts.mono,
+      fontSize: 9.5,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      color: colors.greenDeep,
+      opacity: 0.75,
+    },
+    ideasHint: {
+      fontFamily: fonts.body,
+      fontSize: 12,
+      lineHeight: 17,
+      color: colors.greenDeep,
+      marginTop: 3,
+      marginBottom: spacing.sm,
+    },
+    ideasNone: {
+      fontFamily: fonts.body,
+      fontSize: 12.5,
+      lineHeight: 18,
+      color: colors.greenDeep,
+      paddingVertical: spacing.xs,
+    },
+    ideaRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.md,
+      paddingVertical: spacing.sm,
+      borderTopWidth: 1,
+      borderTopColor: 'rgba(15,50,37,0.14)',
+    },
+    ideaTexts: { flex: 1, minWidth: 0 },
+    ideaTitle: { fontFamily: fonts.bodyBold, fontSize: 13.5, color: colors.greenDeep },
+    ideaTagline: { fontFamily: fonts.body, fontSize: 11.5, color: colors.greenDeep, opacity: 0.8, marginTop: 1 },
+    ideasMore: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingTop: spacing.sm,
+      borderTopWidth: 1,
+      borderTopColor: 'rgba(15,50,37,0.14)',
+    },
+    ideasMoreText: { fontFamily: fonts.bodyBold, fontSize: 13, color: colors.greenDeep },
     noGroupNote: {
       marginTop: spacing.md,
       borderRadius: radii.md,

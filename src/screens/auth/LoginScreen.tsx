@@ -12,6 +12,7 @@ import { ScreenContainer } from '../../components/ScreenContainer';
 import { Wordmark } from '../../components/Wordmark';
 import { FormField } from '../../components/FormField';
 import { Button } from '../../components/Button';
+import { LanguageSwitch } from '../../components/LanguageSwitch';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { translateAuthError } from '../../lib/authErrors';
@@ -72,6 +73,7 @@ export function LoginScreen({ navigation }: Props) {
         style={styles.flex}
       >
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
+          <LanguageSwitch style={styles.langSwitch} />
           <Wordmark width={190} style={styles.brand} />
           <Text style={styles.title}>{t('auth.welcomeBack')}</Text>
           <Text style={styles.sub}>{t('auth.signInSubtitle')}</Text>
@@ -123,6 +125,7 @@ function makeStyles(colors: Colors) {
       justifyContent: 'center',
       padding: spacing.xxl,
     },
+    langSwitch: { alignSelf: 'flex-end', marginBottom: spacing.md },
     brand: { alignSelf: 'center', marginBottom: spacing.lg },
     title: {
       fontFamily: fonts.display,
