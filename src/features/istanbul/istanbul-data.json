@@ -1,0 +1,1231 @@
+{
+  "meta": {
+    "title": "Carte Istanbul",
+    "trip": "5–9 novembre 2026",
+    "city": "Istanbul",
+    "coordinatesCheckedOn": "2026-10-15",
+    "coordinatesSource": "OpenStreetMap / Nominatim"
+  },
+  "hotel": {
+    "id": "hotel",
+    "name": "Hampton by Hilton Istanbul Sirkeci",
+    "address": "Hobyar Mah., Hocamkasım Köprü Sk. No:5, 34112 Fatih/İstanbul",
+    "addressTurkish": "Hampton by Hilton Istanbul Sirkeci\nHobyar Mah., Hocamkasım Köprü Sk. No:5\n34112 Fatih / İstanbul",
+    "note": "À 3 min à pied du Bazar aux épices et à 4 min de la gare de Sirkeci.",
+    "lat": 41.01358,
+    "lng": 28.97377,
+    "osmQuery": "Hampton by Hilton Istanbul Sirkeci",
+    "verified": true
+  },
+  "categories": [
+    {
+      "id": "sites",
+      "label": "Sites & monuments",
+      "color": "#7C3AED",
+      "icon": "🕌"
+    },
+    {
+      "id": "restaurants",
+      "label": "Restaurants",
+      "color": "#DB2777",
+      "icon": "🍽️"
+    },
+    {
+      "id": "desserts",
+      "label": "Desserts & café",
+      "color": "#92400E",
+      "icon": "🍰"
+    },
+    {
+      "id": "shopping",
+      "label": "Shopping",
+      "color": "#2563EB",
+      "icon": "🛍️"
+    },
+    {
+      "id": "balades",
+      "label": "Balades & vues",
+      "color": "#0891B2",
+      "icon": "🌅"
+    },
+    {
+      "id": "pratique",
+      "label": "Pratique",
+      "color": "#475569",
+      "icon": "🚋"
+    }
+  ],
+  "zones": [
+    {
+      "id": "verte",
+      "kind": "verte",
+      "name": "Zone verte – Zone libre à pied",
+      "center": "hotel",
+      "radius": 2000,
+      "message": "Vous pouvez circuler librement à pied dans cette zone. Restez sur les rues principales le soir."
+    },
+    {
+      "id": "orange",
+      "kind": "orange",
+      "name": "Zone orange – Limite maximale",
+      "center": "hotel",
+      "radius": 6000,
+      "message": "Au-delà du cercle vert : uniquement en transport (tram, ferry, métro), en groupe de 3 minimum, retour avant 22h. Au-delà du cercle orange : uniquement avec le staff."
+    },
+    {
+      "id": "tarlabasi",
+      "kind": "eviter",
+      "name": "Tarlabaşı",
+      "lat": 41.036,
+      "lng": 28.9795,
+      "radius": 350,
+      "message": "Quartier à éviter, très proche d'İstiklal. Ne quittez pas l'avenue principale.",
+      "osmQuery": "Tarlabaşı, Beyoğlu, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "dolapdere",
+      "kind": "eviter",
+      "name": "Dolapdere",
+      "lat": 41.0405,
+      "lng": 28.9735,
+      "radius": 300,
+      "message": "Quartier à éviter, même en journée.",
+      "osmQuery": "Dolapdere, Beyoğlu, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "kasimpasa",
+      "kind": "prudence",
+      "name": "Kasımpaşa",
+      "lat": 41.0375,
+      "lng": 28.9665,
+      "radius": 400,
+      "message": "Risque de vols et d'arnaques.",
+      "osmQuery": "Kasımpaşa, Beyoğlu, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "laleli-aksaray",
+      "kind": "prudence",
+      "name": "Laleli – Aksaray",
+      "lat": 41.0095,
+      "lng": 28.9555,
+      "radius": 500,
+      "message": "Pas de raison d'y aller ; inconfortable surtout le soir et pour les femmes.",
+      "osmQuery": "Laleli, Fatih, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "kustepe",
+      "kind": "eviter",
+      "name": "Kuştepe (Şişli)",
+      "lat": 41.07198,
+      "lng": 28.99097,
+      "radius": 300,
+      "message": "Quartier à éviter.",
+      "osmQuery": "Kuştepe, Şişli, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "taksim-nuit",
+      "kind": "prudence",
+      "name": "Taksim – prudence la nuit",
+      "lat": 41.0369,
+      "lng": 28.985,
+      "radius": 500,
+      "message": "OK en journée. Le soir : rester sur les grandes avenues, éviter les ruelles, prendre un taxi.",
+      "osmQuery": "Taksim Meydanı, İstanbul",
+      "verified": true
+    }
+  ],
+  "safeAnchors": [
+    {
+      "name": "l'hôtel (Sirkeci)",
+      "lat": 41.01358,
+      "lng": 28.97377,
+      "hotel": true
+    },
+    {
+      "name": "Sultanahmet (Sainte-Sophie / Mosquée Bleue)",
+      "lat": 41.0058,
+      "lng": 28.9785
+    },
+    {
+      "name": "Eminönü et le pont de Galata",
+      "lat": 41.0178,
+      "lng": 28.9735
+    },
+    {
+      "name": "Karaköy et Galata",
+      "lat": 41.0237,
+      "lng": 28.9785
+    },
+    {
+      "name": "l'avenue İstiklal (côté Tünel)",
+      "lat": 41.0286,
+      "lng": 28.9737
+    },
+    {
+      "name": "la place Taksim (en journée)",
+      "lat": 41.0369,
+      "lng": 28.985
+    }
+  ],
+  "places": [
+    {
+      "id": "ayasofya",
+      "name": "Sainte-Sophie (Ayasofya)",
+      "category": "sites",
+      "lat": 41.0085,
+      "lng": 28.98001,
+      "description": "L'incontournable d'Istanbul : une basilique byzantine devenue mosquée, au cœur de Sultanahmet.",
+      "tip": "Entrée payante pour les visiteurs étrangers. Y aller tôt le matin. Tenue modeste, foulard pour les femmes.",
+      "price": "€€€",
+      "zone": "verte",
+      "osmQuery": "Ayasofya, Fatih, İstanbul",
+      "verified": true,
+      "short": "Sainte-Sophie"
+    },
+    {
+      "id": "sultanahmet-camii",
+      "name": "Mosquée Bleue (Sultanahmet Camii)",
+      "category": "sites",
+      "lat": 41.00538,
+      "lng": 28.97685,
+      "description": "Célèbre pour ses six minarets et ses faïences bleues d'Iznik.",
+      "tip": "Gratuite, fermée aux visiteurs pendant les prières. Vendredi 6 novembre : évitez vers midi (prière du vendredi). Tenue modeste, foulard pour les femmes.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Sultanahmet Camii, Fatih, İstanbul",
+      "verified": true,
+      "short": "Mosquée Bleue"
+    },
+    {
+      "id": "yerebatan",
+      "name": "Citerne Basilique (Yerebatan)",
+      "category": "sites",
+      "lat": 41.00848,
+      "lng": 28.97838,
+      "description": "Citerne byzantine souterraine aux colonnes de marbre, ambiance unique.",
+      "tip": "Entrée payante, environ 45 min de visite. Il y fait frais et humide.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Yerebatan Sarnıcı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Citerne Basilique"
+    },
+    {
+      "id": "topkapi",
+      "name": "Palais de Topkapı",
+      "category": "sites",
+      "lat": 41.0115,
+      "lng": 28.9834,
+      "description": "Ancien palais des sultans ottomans : cours, pavillons, trésor et vue sur le Bosphore.",
+      "tip": "Prévoyez 2 à 3 h. Entrée payante. Venez tôt le matin.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Topkapı Sarayı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Palais de Topkapı"
+    },
+    {
+      "id": "suleymaniye",
+      "name": "Mosquée Süleymaniye",
+      "category": "sites",
+      "lat": 41.01623,
+      "lng": 28.96395,
+      "description": "Magnifique et calme, avec une vue panoramique gratuite sur la Corne d'Or.",
+      "tip": "Gratuite. À visiter hors des heures de prière, tenue modeste.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Süleymaniye Camii, Fatih, İstanbul",
+      "verified": true,
+      "short": "Süleymaniye"
+    },
+    {
+      "id": "rustem-pasa",
+      "name": "Mosquée Rüstem Pacha",
+      "category": "sites",
+      "lat": 41.01767,
+      "lng": 28.9687,
+      "description": "Petite perle cachée aux célèbres faïences bleues, à 5 min de l'hôtel.",
+      "tip": "Gratuite. L'entrée se fait à l'étage, par un escalier discret.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Rüstem Paşa Camii, Fatih, İstanbul",
+      "verified": true,
+      "short": "Rüstem Pacha"
+    },
+    {
+      "id": "dolmabahce",
+      "name": "Palais de Dolmabahçe",
+      "category": "sites",
+      "lat": 41.03896,
+      "lng": 28.99977,
+      "description": "Somptueux palais du XIXᵉ siècle au bord du Bosphore.",
+      "tip": "Zone orange : en transport (tram T1 jusqu'à Kabataş), en groupe. Entrée payante, fermé le lundi.",
+      "price": "€€",
+      "zone": "orange",
+      "osmQuery": "Dolmabahçe Sarayı, Beşiktaş, İstanbul",
+      "verified": true,
+      "short": "Dolmabahçe"
+    },
+    {
+      "id": "ortakoy-camii",
+      "name": "Mosquée d'Ortaköy",
+      "category": "sites",
+      "lat": 41.04729,
+      "lng": 29.02677,
+      "description": "Mosquée emblématique au pied du pont du Bosphore, très photogénique.",
+      "tip": "Zone orange : en transport, en groupe de 3 minimum. Gaufres et kumpir sur la place.",
+      "price": "Gratuit",
+      "zone": "orange",
+      "osmQuery": "Ortaköy Camii, Beşiktaş, İstanbul",
+      "verified": true,
+      "short": "Mosquée Ortaköy"
+    },
+    {
+      "id": "hamdi",
+      "name": "Hamdi Restaurant",
+      "category": "restaurants",
+      "lat": 41.01716,
+      "lng": 28.9699,
+      "description": "Kebabs et terrasse avec vue sur la Corne d'Or.",
+      "tip": "Réservez pour un groupe.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Hamdi Restaurant, Eminönü, İstanbul",
+      "verified": true,
+      "short": "Hamdi Restaurant"
+    },
+    {
+      "id": "sultanahmet-koftecisi",
+      "name": "Sultanahmet Köftecisi",
+      "category": "restaurants",
+      "lat": 41.008,
+      "lng": 28.97697,
+      "description": "Restaurant historique de köfte, rapide et bon marché.",
+      "tip": "Pas de réservation : arrivez avant l'heure de pointe (12h30).",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Sultanahmet Köftecisi Selim Usta",
+      "verified": true,
+      "short": "Sultanahmet Köfte"
+    },
+    {
+      "id": "pandeli",
+      "name": "Pandeli",
+      "category": "restaurants",
+      "lat": 41.01714,
+      "lng": 28.97118,
+      "description": "Restaurant ottoman historique, au-dessus de l'entrée du Bazar aux épices.",
+      "tip": "Cadre superbe, plus cher : à réserver.",
+      "price": "€€€",
+      "zone": "verte",
+      "osmQuery": "Pandeli, Eminönü, İstanbul",
+      "verified": true,
+      "short": "Pandeli"
+    },
+    {
+      "id": "balik-ekmek",
+      "name": "Balık ekmek (bateaux d'Eminönü)",
+      "category": "restaurants",
+      "lat": 41.01836,
+      "lng": 28.97121,
+      "description": "Sandwich de poisson grillé sur les bateaux : à goûter absolument.",
+      "tip": "Très bon marché, à manger sur le quai. Gardez vos affaires devant vous : il y a foule.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Eminönü Balık Ekmek, İstanbul",
+      "verified": true,
+      "short": "Balık ekmek"
+    },
+    {
+      "id": "ciya",
+      "name": "Çiya Sofrası (Kadıköy)",
+      "category": "restaurants",
+      "lat": 40.98935,
+      "lng": 29.02443,
+      "description": "Cuisine traditionnelle d'Anatolie, que l'on paie au poids.",
+      "tip": "Zone orange : en ferry, en groupe de 3 minimum. Payez au poids : servez-vous peu au début.",
+      "price": "€€",
+      "zone": "orange",
+      "osmQuery": "Çiya Sofrası, Kadıköy, İstanbul",
+      "verified": true,
+      "short": "Çiya Sofrası"
+    },
+    {
+      "id": "hafiz-mustafa",
+      "name": "Hafız Mustafa 1864 (Sirkeci)",
+      "category": "desserts",
+      "lat": 41.01601,
+      "lng": 28.97336,
+      "description": "Baklavas, loukoums et desserts turcs, à 3 min de l'hôtel.",
+      "tip": "Idéal pour les cadeaux : demandez des boîtes.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Hafız Mustafa 1864, Sirkeci, İstanbul",
+      "verified": true,
+      "short": "Hafız Mustafa"
+    },
+    {
+      "id": "karakoy-gulluoglu",
+      "name": "Karaköy Güllüoğlu",
+      "category": "desserts",
+      "lat": 41.02489,
+      "lng": 28.98096,
+      "description": "Réputé pour avoir le meilleur baklava d'Istanbul.",
+      "tip": "À emporter en boîte, ou à déguster sur place.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Karaköy Güllüoğlu, Karaköy, İstanbul",
+      "verified": true,
+      "short": "Karaköy Güllüoğlu"
+    },
+    {
+      "id": "mehmet-efendi",
+      "name": "Kurukahveci Mehmet Efendi",
+      "category": "desserts",
+      "lat": 41.01655,
+      "lng": 28.97027,
+      "description": "Maison historique de café turc, idéale pour les cadeaux.",
+      "tip": "Le café est moulu sur place, très bon en cadeau.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Kurukahveci Mehmet Efendi, Eminönü, İstanbul",
+      "verified": true,
+      "short": "Mehmet Efendi"
+    },
+    {
+      "id": "vefa-bozacisi",
+      "name": "Vefa Bozacısı",
+      "category": "desserts",
+      "lat": 41.01532,
+      "lng": 28.95842,
+      "description": "Boza, la boisson traditionnelle d'hiver, servie depuis 1876.",
+      "tip": "Goût particulier : essayez-la avec de la cannelle et des pois chiches grillés.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Vefa Bozacısı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Vefa Bozacısı"
+    },
+    {
+      "id": "kapalicarsi",
+      "name": "Grand Bazar (Kapalıçarşı)",
+      "category": "shopping",
+      "lat": 41.0107,
+      "lng": 28.968,
+      "description": "Des milliers de boutiques sous des voûtes : bijoux, cuir, céramique, textile.",
+      "tip": "Fermé le dimanche (8 novembre). Négociez les prix et comparez avant d'acheter.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Kapalıçarşı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Grand Bazar"
+    },
+    {
+      "id": "misir-carsisi",
+      "name": "Bazar aux épices (Mısır Çarşısı)",
+      "category": "shopping",
+      "lat": 41.01648,
+      "lng": 28.97054,
+      "description": "Épices, loukoums, thés : juste à côté de l'hôtel.",
+      "tip": "Goûtez avant d'acheter et demandez des sachets sous vide pour le voyage.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Mısır Çarşısı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Bazar aux épices"
+    },
+    {
+      "id": "mahmutpasa",
+      "name": "Mahmutpaşa",
+      "category": "shopping",
+      "lat": 41.01259,
+      "lng": 28.97055,
+      "description": "Bazar local populaire et bon marché.",
+      "tip": "Très fréquenté : attention aux pickpockets, gardez le sac devant vous.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Mahmutpaşa Yokuşu, Fatih, İstanbul",
+      "verified": true,
+      "short": "Mahmutpaşa"
+    },
+    {
+      "id": "istiklal",
+      "name": "Avenue İstiklal",
+      "category": "shopping",
+      "lat": 41.0286,
+      "lng": 28.9737,
+      "description": "Grande avenue piétonne : enseignes, cafés et tramway nostalgique.",
+      "tip": "En journée uniquement. Ne prenez pas les ruelles vers le nord (Tarlabaşı).",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "İstiklal Caddesi, Beyoğlu, İstanbul",
+      "verified": true,
+      "short": "Avenue İstiklal"
+    },
+    {
+      "id": "galataport",
+      "name": "Galataport",
+      "category": "shopping",
+      "lat": 41.0241,
+      "lng": 28.98003,
+      "description": "Quartier de shopping moderne en bord de mer, sûr et agréable.",
+      "tip": "Boutiques de marques, restaurants, promenade : très sûr, même en fin de journée.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Galataport, Karaköy, İstanbul",
+      "verified": true,
+      "short": "Galataport"
+    },
+    {
+      "id": "galata-tower",
+      "name": "Tour de Galata",
+      "category": "balades",
+      "lat": 41.02564,
+      "lng": 28.97421,
+      "description": "Vue panoramique à 360° sur la ville et la Corne d'Or.",
+      "tip": "Payante, longue file au coucher du soleil : arrivez une heure avant.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Galata Kulesi, Beyoğlu, İstanbul",
+      "verified": true,
+      "short": "Tour de Galata"
+    },
+    {
+      "id": "galata-bridge",
+      "name": "Pont de Galata",
+      "category": "balades",
+      "lat": 41.02001,
+      "lng": 28.97312,
+      "description": "Traversée à pied entre pêcheurs et vue sur les mosquées.",
+      "tip": "Gratuit. Les restaurants sous le pont sont souvent chers : comparez avant de vous asseoir.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Galata Köprüsü, İstanbul",
+      "verified": true,
+      "short": "Pont de Galata"
+    },
+    {
+      "id": "bosphore-croisiere",
+      "name": "Croisière sur le Bosphore (Şehir Hatları, Eminönü)",
+      "category": "balades",
+      "lat": 41.0183,
+      "lng": 28.9731,
+      "description": "Croisière en ferry public, beaucoup moins chère que les tours privés.",
+      "tip": "Départ d'Eminönü. Choisissez le ferry public (Şehir Hatları), pas les rabatteurs sur le quai.",
+      "price": "€€",
+      "zone": "verte",
+      "osmQuery": "Eminönü İskelesi, İstanbul",
+      "verified": true,
+      "short": "Croisière Bosphore"
+    },
+    {
+      "id": "gulhane",
+      "name": "Parc de Gülhane",
+      "category": "balades",
+      "lat": 41.01303,
+      "lng": 28.9809,
+      "description": "Parc calme à côté du palais de Topkapı.",
+      "tip": "Parfait pour une pause entre deux visites.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Gülhane Parkı, Fatih, İstanbul",
+      "verified": true,
+      "short": "Parc de Gülhane"
+    },
+    {
+      "id": "kadikoy",
+      "name": "Kadıköy (côté asiatique)",
+      "category": "balades",
+      "lat": 40.9917,
+      "lng": 29.0228,
+      "description": "Rues de marché et cafés, ambiance locale et détendue.",
+      "tip": "Zone orange. Ferry depuis Eminönü ou Karaköy (20 min). Groupe de 3 minimum, retour avant 22h.",
+      "price": "Gratuit",
+      "zone": "orange",
+      "osmQuery": "Kadıköy İskelesi, İstanbul",
+      "verified": true,
+      "short": "Kadıköy (ferry)"
+    },
+    {
+      "id": "balat",
+      "name": "Balat",
+      "category": "balades",
+      "lat": 41.0294,
+      "lng": 28.9487,
+      "description": "Maisons colorées et ruelles photogéniques.",
+      "tip": "Zone orange. Quartier populaire : restez groupés et visitez en journée.",
+      "price": "Gratuit",
+      "zone": "orange",
+      "osmQuery": "Balat, Fatih, İstanbul",
+      "verified": true,
+      "short": "Balat"
+    },
+    {
+      "id": "pierre-loti",
+      "name": "Colline de Pierre Loti",
+      "category": "balades",
+      "lat": 41.0535,
+      "lng": 28.9337,
+      "description": "Téléphérique et thé avec vue sur la Corne d'Or.",
+      "tip": "Zone orange. Téléphérique depuis Eyüp, retour en taxi (BiTaksi).",
+      "price": "€",
+      "zone": "orange",
+      "osmQuery": "Pierre Loti Tepesi, Eyüpsultan, İstanbul",
+      "verified": true,
+      "short": "Pierre Loti"
+    },
+    {
+      "id": "camlica",
+      "name": "Grande Mosquée de Çamlıca",
+      "category": "balades",
+      "lat": 41.03453,
+      "lng": 29.07059,
+      "description": "La plus grande mosquée de Turquie, avec une vue sur le Bosphore.",
+      "tip": "Zone staff : uniquement en visite organisée avec le staff.",
+      "price": "Gratuit",
+      "zone": "staff",
+      "osmQuery": "Büyük Çamlıca Camii, Üsküdar, İstanbul",
+      "verified": true,
+      "short": "Mosquée Çamlıca"
+    },
+    {
+      "id": "tram-sirkeci",
+      "name": "Tram T1 – Sirkeci",
+      "category": "pratique",
+      "lat": 41.0152,
+      "lng": 28.9767,
+      "description": "Le tram T1 dessert Sultanahmet, Eminönü, Karaköy et Kabataş.",
+      "tip": "Achetez une Istanbulkart aux bornes automatiques et rechargez-la.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Sirkeci Tramvay Durağı, Fatih, İstanbul",
+      "verified": false,
+      "short": "Tram T1 Sirkeci"
+    },
+    {
+      "id": "tram-eminonu",
+      "name": "Tram T1 – Eminönü",
+      "category": "pratique",
+      "lat": 41.0172,
+      "lng": 28.9727,
+      "description": "Arrêt du tram T1 au pied du pont de Galata et du Bazar aux épices.",
+      "tip": "Même Istanbulkart que pour le ferry et le métro.",
+      "price": "€",
+      "zone": "verte",
+      "osmQuery": "Eminönü Tramvay Durağı, Fatih, İstanbul",
+      "verified": false,
+      "short": "Tram T1 Eminönü"
+    },
+    {
+      "id": "police-touristique",
+      "name": "Police touristique (Sultanahmet)",
+      "category": "pratique",
+      "lat": 41.00774,
+      "lng": 28.97658,
+      "description": "Poste de police dédié aux touristes, à Sultanahmet.",
+      "tip": "En cas de vol ou de problème : demandez de l'aide ici ou appelez le 112.",
+      "price": "Gratuit",
+      "zone": "verte",
+      "osmQuery": "Turizm Polisi, Sultanahmet, İstanbul",
+      "verified": true,
+      "short": "Police touristique"
+    }
+  ],
+  "transportStops": [
+    {
+      "id": "eminonu-ferry",
+      "name": "Embarcadère d'Eminönü (ferry)",
+      "lat": 41.0183,
+      "lng": 28.9731,
+      "osmQuery": "Eminönü İskelesi, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "kadikoy-ferry",
+      "name": "Embarcadère de Kadıköy (ferry)",
+      "lat": 40.99291,
+      "lng": 29.02287,
+      "osmQuery": "Kadıköy İskelesi, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "besiktas-ferry",
+      "name": "Embarcadère de Beşiktaş (ferry)",
+      "lat": 41.04108,
+      "lng": 29.00736,
+      "osmQuery": "Beşiktaş İskelesi, İstanbul",
+      "verified": true
+    },
+    {
+      "id": "kabatas-tram",
+      "name": "Kabataş (tram T1 et ferry)",
+      "lat": 41.03294,
+      "lng": 28.99415,
+      "osmQuery": "Kabataş Tramvay Durağı, İstanbul",
+      "verified": true
+    }
+  ],
+  "programs": [
+    {
+      "id": "arrivee",
+      "title": "Soirée d'arrivée",
+      "tagline": "Jeudi 5 novembre · groupe 1, dès l'arrivée à l'hôtel (≈ 18:00)",
+      "mode": "À pied",
+      "zone": "verte",
+      "day": "2026-11-05",
+      "group": 1,
+      "warnings": [
+        "Groupe 2 : arrivée vers 22:00, repos et bonne nuit !"
+      ],
+      "stops": [
+        {
+          "time": "19:30",
+          "place": "hamdi",
+          "label": "Dîner – Hamdi Restaurant"
+        },
+        {
+          "time": "20:45",
+          "place": "galata-bridge",
+          "note": "Le pont illuminé"
+        },
+        {
+          "time": "21:15",
+          "place": "hafiz-mustafa"
+        },
+        {
+          "time": "21:45",
+          "hotel": true,
+          "label": "Retour à l'hôtel avant 22h00"
+        }
+      ]
+    },
+    {
+      "id": "balade-soir",
+      "title": "Après la balade du Bosphore",
+      "tagline": "Vendredi 6 novembre · dès ≈ 17:00, à la fin de la balade",
+      "mode": "À pied + tram T1",
+      "zone": "verte",
+      "day": "2026-11-06",
+      "warnings": [],
+      "stops": [
+        {
+          "time": "17:15",
+          "place": "galata-bridge",
+          "note": "Coucher de soleil à 17:54"
+        },
+        {
+          "time": "18:15",
+          "place": "galata-tower",
+          "note": "Vue sur la ville illuminée"
+        },
+        {
+          "time": "19:15",
+          "place": "karakoy-gulluoglu"
+        },
+        {
+          "time": "20:00",
+          "place": "galataport",
+          "label": "Dîner à Galataport",
+          "note": "ou début d'İstiklal"
+        },
+        {
+          "time": "21:30",
+          "hotel": true,
+          "label": "Retour à l'hôtel (tram T1) avant 22h00"
+        }
+      ]
+    },
+    {
+      "id": "historique",
+      "title": "Istanbul historique",
+      "tagline": "Dimanche 8 novembre · journée libre, option A · 100 % à pied",
+      "mode": "À pied",
+      "zone": "verte",
+      "day": "2026-11-08",
+      "option": "A",
+      "warnings": [
+        "Mosquées fermées aux visiteurs pendant les prières : passez à l'étape suivante."
+      ],
+      "stops": [
+        {
+          "time": "09:00",
+          "place": "ayasofya"
+        },
+        {
+          "time": "10:30",
+          "place": "sultanahmet-camii"
+        },
+        {
+          "time": "11:30",
+          "place": "yerebatan"
+        },
+        {
+          "time": "12:30",
+          "place": "sultanahmet-koftecisi",
+          "label": "Déjeuner – Sultanahmet Köftecisi"
+        },
+        {
+          "time": "14:00",
+          "place": "topkapi"
+        },
+        {
+          "time": "16:30",
+          "place": "gulhane"
+        },
+        {
+          "time": "17:30",
+          "place": "hafiz-mustafa"
+        },
+        {
+          "time": "20:00",
+          "place": "hamdi",
+          "label": "Dîner – Hamdi Restaurant"
+        },
+        {
+          "time": "21:30",
+          "hotel": true,
+          "label": "Retour à l'hôtel avant 22h00"
+        }
+      ]
+    },
+    {
+      "id": "asie",
+      "title": "Côté asiatique & Bosphore",
+      "tagline": "Dimanche 8 novembre · journée libre, option B · ferry + tram T1",
+      "mode": "Ferry + tram T1",
+      "zone": "orange",
+      "day": "2026-11-08",
+      "option": "B",
+      "warnings": [
+        "Zone orange : groupes de 3 personnes minimum, retour avant 22h00.",
+        "Dolmabahçe : arrivez avant 15:00 (fermé le lundi)."
+      ],
+      "stops": [
+        {
+          "time": "09:30",
+          "transport": "eminonu-ferry",
+          "label": "Ferry Eminönü → Kadıköy"
+        },
+        {
+          "time": "10:00",
+          "place": "kadikoy",
+          "label": "Marché de Kadıköy"
+        },
+        {
+          "time": "12:00",
+          "place": "ciya",
+          "label": "Déjeuner – Çiya Sofrası"
+        },
+        {
+          "time": "13:30",
+          "transport": "kadikoy-ferry",
+          "label": "Ferry Kadıköy → Beşiktaş"
+        },
+        {
+          "time": "14:15",
+          "place": "dolmabahce"
+        },
+        {
+          "time": "16:30",
+          "place": "ortakoy-camii",
+          "note": "Vue du pont, kumpir, gaufre"
+        },
+        {
+          "time": "18:30",
+          "place": "galataport"
+        },
+        {
+          "time": "",
+          "transport": "kabatas-tram",
+          "label": "Retour en tram T1 de Kabataş à Sirkeci",
+          "short": "T1 Kabataş → Sirkeci"
+        },
+        {
+          "time": "21:30",
+          "hotel": true,
+          "label": "Retour à l'hôtel avant 22h00"
+        }
+      ]
+    },
+    {
+      "id": "balat-loti",
+      "title": "Balat & Pierre Loti",
+      "tagline": "Dimanche 8 novembre · journée libre, option C · demi-journée",
+      "mode": "Taxi / téléphérique",
+      "zone": "orange",
+      "day": "2026-11-08",
+      "option": "C",
+      "warnings": [
+        "Zone orange : groupes de 3 personnes minimum, retour avant 22h00.",
+        "Retour en taxi : utilisez l'application BiTaksi ou demandez à l'hôtel d'en appeler un."
+      ],
+      "stops": [
+        {
+          "time": "",
+          "place": "balat",
+          "label": "Rues colorées de Balat"
+        },
+        {
+          "time": "",
+          "place": "pierre-loti",
+          "label": "Téléphérique et thé avec vue sur la Corne d'Or",
+          "short": "Pierre Loti : téléphérique et thé"
+        },
+        {
+          "time": "",
+          "hotel": true,
+          "label": "Retour en taxi à l'hôtel"
+        }
+      ]
+    },
+    {
+      "id": "matinee-depart",
+      "title": "Dernière matinée : les marchés",
+      "tagline": "Lundi 9 novembre · groupe 1, avant le départ pour l'aéroport",
+      "mode": "À pied",
+      "zone": "verte",
+      "day": "2026-11-09",
+      "group": 1,
+      "warnings": [
+        "Demandez au staff l'heure de départ pour l'aéroport avant de partir.",
+        "Groupe 2 : vous partez avant l'aube (check-out avant 05:00)."
+      ],
+      "stops": [
+        {
+          "time": "09:00",
+          "place": "misir-carsisi"
+        },
+        {
+          "time": "09:30",
+          "place": "mehmet-efendi"
+        },
+        {
+          "time": "10:00",
+          "place": "rustem-pasa"
+        },
+        {
+          "time": "10:30",
+          "place": "kapalicarsi"
+        },
+        {
+          "time": "",
+          "hotel": true,
+          "label": "Retour à l'hôtel à l'heure du staff"
+        }
+      ]
+    }
+  ],
+  "emergency": {
+    "number": "112",
+    "numberLabel": "Numéro d'urgence unique en Turquie (police, ambulance, pompiers)",
+    "taxiPhraseTurkish": "Lütfen beni bu otele götürün.",
+    "taxiPhraseFrench": "Veuillez m'emmener à cet hôtel.",
+    "staff": [
+      {
+        "name": "Zineddine",
+        "role": "Responsable du groupe",
+        "phone": ""
+      },
+      {
+        "name": "Malek",
+        "phone": ""
+      },
+      {
+        "name": "Hichem",
+        "phone": ""
+      },
+      {
+        "name": "Samy",
+        "phone": ""
+      },
+      {
+        "name": "Yazid",
+        "phone": ""
+      }
+    ],
+    "scams": [
+      {
+        "title": "Le cireur de chaussures",
+        "text": "Un homme laisse « tomber » sa brosse devant vous, puis vous cire les chaussures et réclame une somme exorbitante. Ne ramassez rien, continuez à marcher."
+      },
+      {
+        "title": "L'inconnu très sympathique",
+        "text": "Quelqu'un vous aborde gentiment et vous invite dans un bar ou un café : l'addition peut atteindre des centaines d'euros. Refusez poliment."
+      },
+      {
+        "title": "Les plats que vous n'avez pas commandés",
+        "text": "Des plats ou boissons arrivent à table sans que vous les ayez demandés, puis sont facturés. Refusez-les dès qu'ils arrivent et vérifiez l'addition."
+      },
+      {
+        "title": "La monnaie rendue en moins",
+        "text": "Payez avec l'appoint ou par carte, comptez toujours votre monnaie devant le commerçant."
+      },
+      {
+        "title": "Le terminal de carte en euros",
+        "text": "Quand le terminal propose de débiter en euros, choisissez toujours la livre turque (TRY) : le taux appliqué en euros est défavorable."
+      },
+      {
+        "title": "Les taxis",
+        "text": "Utilisez l'application BiTaksi ou demandez à l'hôtel d'appeler un taxi. Vérifiez que le compteur est allumé et montrez l'adresse de l'hôtel écrite en turc."
+      }
+    ]
+  },
+  "rules": [
+    "Toujours en groupe de 3 personnes minimum en dehors de la zone verte.",
+    "De retour à l'hôtel avant 22h00.",
+    "Téléphone chargé : emportez une batterie externe.",
+    "Partagez votre position en direct dans le groupe WhatsApp."
+  ],
+  "flyer": {
+    "appUrl": "",
+    "phrases": [
+      {
+        "fr": "Bonjour",
+        "tr": "Merhaba"
+      },
+      {
+        "fr": "Merci",
+        "tr": "Teşekkürler"
+      },
+      {
+        "fr": "S’il vous plaît",
+        "tr": "Lütfen"
+      },
+      {
+        "fr": "Oui / Non",
+        "tr": "Evet / Hayır"
+      },
+      {
+        "fr": "Combien ?",
+        "tr": "Ne kadar?"
+      },
+      {
+        "fr": "L’addition",
+        "tr": "Hesap lütfen"
+      },
+      {
+        "fr": "Trop cher",
+        "tr": "Çok pahalı"
+      },
+      {
+        "fr": "Où est … ?",
+        "tr": "… nerede?"
+      },
+      {
+        "fr": "Au secours !",
+        "tr": "Yardım edin!"
+      }
+    ],
+    "tips": [
+      "Heure : Istanbul = Alger + 2 h",
+      "Monnaie : livre turque (TRY)",
+      "Istanbulkart : tram, ferry, métro",
+      "Taxi : appli BiTaksi, ou via l’hôtel",
+      "Mosquées : tenue modeste, foulard",
+      "Novembre : 10–17 °C, pluie probable"
+    ],
+    "scams": [
+      {
+        "title": "Le cireur de chaussures",
+        "text": "ne ramassez pas la brosse « tombée », continuez."
+      },
+      {
+        "title": "L'inconnu très sympa",
+        "text": "il vous invite dans un bar : addition énorme. Refusez."
+      },
+      {
+        "title": "Plats non commandés",
+        "text": "refusez-les dès qu'ils arrivent, vérifiez l'addition."
+      },
+      {
+        "title": "Monnaie et carte",
+        "text": "comptez votre monnaie ; payez en TRY, jamais en euros."
+      },
+      {
+        "title": "Taxis",
+        "text": "appli BiTaksi ou via l’hôtel ; compteur allumé ; montrez l’adresse."
+      }
+    ]
+  },
+  "officialProgram": {
+    "title": "Notre programme",
+    "tagline": "Formation · Énergie · Découverte",
+    "breakfast": "Petit-déjeuner inclus à l'hôtel, chaque matin",
+    "groups": [
+      {
+        "id": 1,
+        "name": "Groupe 1",
+        "airline": "Air Algérie"
+      },
+      {
+        "id": 2,
+        "name": "Groupe 2",
+        "airline": "Pegasus Airlines"
+      }
+    ],
+    "days": [
+      {
+        "id": "arrivee",
+        "date": "2026-11-05",
+        "kind": "travel",
+        "title": "On décolle !",
+        "breakfast": false,
+        "items": [
+          {
+            "group": 1,
+            "time": "06:30",
+            "icon": "suitcase",
+            "text": "Rendez-vous à l'aéroport d'Alger : le staff vous contacte sur place"
+          },
+          {
+            "group": 1,
+            "kind": "flight",
+            "airline": "Air Algérie",
+            "baggage": "2 × 23 kg en soute + 10 kg en cabine",
+            "from": "Alger",
+            "to": "Istanbul (IST)",
+            "dep": "09:40",
+            "arr": "15:15"
+          },
+          {
+            "group": 1,
+            "time": "≈ 18:00",
+            "icon": "hotel",
+            "text": "Arrivée à l'hôtel (Hampton by Hilton Sirkeci) et installation"
+          },
+          {
+            "group": 1,
+            "time": "Soir",
+            "icon": "sun",
+            "free": true,
+            "text": "Repos ou sortie (idées au verso)"
+          },
+          {
+            "group": 2,
+            "time": "10:30",
+            "icon": "suitcase",
+            "text": "Rendez-vous à l'aéroport d'Alger : le staff vous contacte sur place"
+          },
+          {
+            "group": 2,
+            "kind": "flight",
+            "airline": "Pegasus Airlines",
+            "baggage": "20 kg en soute + 8 kg en cabine",
+            "from": "Alger",
+            "to": "Istanbul (SAW)",
+            "dep": "12:55",
+            "arr": "18:30"
+          },
+          {
+            "group": 2,
+            "icon": "help",
+            "text": "Atterrissage à l'aéroport Sabiha Gökçen (côté asiatique)"
+          },
+          {
+            "group": 2,
+            "time": "≈ 22:00",
+            "icon": "hotel",
+            "text": "Arrivée à l'hôtel (Hampton by Hilton Sirkeci) et repos"
+          }
+        ]
+      },
+      {
+        "id": "formation",
+        "date": "2026-11-06",
+        "kind": "official",
+        "title": "Formation & Bosphore",
+        "breakfast": true,
+        "items": [
+          {
+            "time": "Matin",
+            "icon": "school",
+            "text": "Réunion Ultimate (formation) à l'hôtel, début 9h-10h, jusqu'à ≈ 12:30"
+          },
+          {
+            "time": "13:00",
+            "icon": "boat",
+            "text": "En route pour la balade du Bosphore : départ d'Eminönü"
+          },
+          {
+            "time": "≈ 17:00",
+            "icon": "sun",
+            "free": true,
+            "text": "Fin de la balade (idées au verso)"
+          }
+        ]
+      },
+      {
+        "id": "sultanahmet",
+        "date": "2026-11-07",
+        "kind": "official",
+        "title": "Mosquée Sultan Ahmed",
+        "breakfast": true,
+        "items": [
+          {
+            "icon": "mosque",
+            "fill": true,
+            "text": "Visite autour de la mosquée. Départ à"
+          }
+        ]
+      },
+      {
+        "id": "libre",
+        "date": "2026-11-08",
+        "kind": "libre",
+        "title": "Journée libre",
+        "breakfast": true,
+        "items": [
+          {
+            "icon": "sun",
+            "free": true,
+            "text": "Day off ! Visites, shopping, Bosphore… à vous de choisir (3 idées au verso)."
+          }
+        ]
+      },
+      {
+        "id": "retour",
+        "date": "2026-11-09",
+        "kind": "travel",
+        "title": "Retour à Alger",
+        "breakfast": true,
+        "items": [
+          {
+            "group": 1,
+            "icon": "suitcase",
+            "fill": true,
+            "text": "Check-out et départ pour l'aéroport :",
+            "after": "(heure du staff)"
+          },
+          {
+            "group": 1,
+            "kind": "flight",
+            "airline": "Air Algérie",
+            "from": "Istanbul (IST)",
+            "to": "Alger",
+            "dep": "20:30",
+            "arr": "22:00"
+          },
+          {
+            "group": 2,
+            "icon": "suitcase",
+            "text": "Check-out de l'hôtel avant 05:00"
+          },
+          {
+            "group": 2,
+            "kind": "flight",
+            "airline": "Pegasus Airlines",
+            "from": "Istanbul (SAW)",
+            "to": "Alger",
+            "dep": "09:45",
+            "arr": "11:35"
+          }
+        ]
+      }
+    ]
+  }
+}

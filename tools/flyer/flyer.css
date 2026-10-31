@@ -1,0 +1,309 @@
+/* Printable Istanbul flyer: one flyer is 95 x 200 mm (a slightly trimmed "DL"), printed three to an
+   A4 landscape sheet. Everything is sized in mm / pt so the PDF is exact. */
+@font-face { font-family: 'Jost'; font-weight: 500; src: url('/app/node_modules/@expo-google-fonts/jost/500Medium/Jost_500Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Jost'; font-weight: 600; src: url('/app/node_modules/@expo-google-fonts/jost/600SemiBold/Jost_600SemiBold.ttf') format('truetype'); }
+@font-face { font-family: 'Jost'; font-weight: 700; src: url('/app/node_modules/@expo-google-fonts/jost/700Bold/Jost_700Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Manrope'; font-weight: 400; src: url('/app/node_modules/@expo-google-fonts/manrope/400Regular/Manrope_400Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Manrope'; font-weight: 500; src: url('/app/node_modules/@expo-google-fonts/manrope/500Medium/Manrope_500Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Manrope'; font-weight: 600; src: url('/app/node_modules/@expo-google-fonts/manrope/600SemiBold/Manrope_600SemiBold.ttf') format('truetype'); }
+@font-face { font-family: 'Manrope'; font-weight: 700; src: url('/app/node_modules/@expo-google-fonts/manrope/700Bold/Manrope_700Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Manrope'; font-weight: 800; src: url('/app/node_modules/@expo-google-fonts/manrope/800ExtraBold/Manrope_800ExtraBold.ttf') format('truetype'); }
+@font-face { font-family: 'Plex'; font-weight: 400; src: url('/app/node_modules/@expo-google-fonts/ibm-plex-mono/400Regular/IBMPlexMono_400Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Plex'; font-weight: 500; src: url('/app/node_modules/@expo-google-fonts/ibm-plex-mono/500Medium/IBMPlexMono_500Medium.ttf') format('truetype'); }
+
+:root {
+  --deep: #0f3225;
+  --green: #1f6b45;
+  --mid: #2c7a52;
+  --pale: #e4f2e9;
+  --ink: #142019;
+  --soft: #5b6b60;
+  --line: #cdd8d0;
+  --red: #dc2626;
+  --amber: #eab308;
+  --orange: #ea580c;
+  --zone-green: #16a34a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #ffffff; }
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ---------- one flyer ---------- */
+.flyer { position: relative; width: 95mm; height: 200mm; overflow: hidden; background: #ffffff; }
+
+/* single mode: one flyer per page */
+body.mode-single .flyer { break-after: page; }
+body.mode-single .flyer:last-child { break-after: auto; }
+
+/* sheet mode: three flyers on an A4 landscape sheet, with crop marks */
+.sheet { position: relative; width: 297mm; height: 210mm; overflow: hidden; background: #ffffff; break-after: page; }
+.sheet:last-child { break-after: auto; }
+.sheet .flyer { position: absolute; top: 5mm; }
+.sheet .flyer:nth-of-type(1) { left: 6mm; }
+.sheet .flyer:nth-of-type(2) { left: 101mm; }
+.sheet .flyer:nth-of-type(3) { left: 196mm; }
+.crop { position: absolute; background: #000000; }
+.crop.v { width: 0.18mm; height: 3.4mm; }
+.crop.h { height: 0.18mm; width: 3.4mm; }
+.sheet-note {
+  position: absolute; left: 0; right: 0; bottom: 0.6mm; text-align: center;
+  font: 400 5pt/1 'Plex', monospace; color: #888888; letter-spacing: 0.04em;
+}
+
+/* ---------- FRONT: the map ---------- */
+.front .map-img { position: absolute; left: 0; top: 0; width: 95mm; height: 200mm; display: block; }
+.front svg.overlay { position: absolute; left: 0; top: 0; width: 95mm; height: 200mm; }
+.ribbon {
+  position: absolute; left: 0; top: 0; width: 95mm; height: 15mm; background: var(--deep); color: #ffffff;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 4mm;
+}
+.ribbon img { height: 8.8mm; display: block; }
+.ribbon .title { text-align: right; }
+.ribbon .title b { display: block; font: 500 16.5pt/1 'Jost', sans-serif; letter-spacing: 0.16em; }
+.ribbon .title span {
+  display: block; margin-top: 1.3mm; font: 500 6.2pt/1 'Plex', monospace; letter-spacing: 0.12em;
+  color: #b9e0c8; text-transform: uppercase;
+}
+.panel { position: absolute; left: 0; bottom: 0; width: 95mm; height: 62mm; background: #ffffff; border-top: 0.45mm solid var(--deep); }
+.inset-wrap { position: absolute; left: 2.5mm; top: 1.6mm; width: 44mm; }
+.cap { font: 800 5.1pt/1 'Manrope', sans-serif; letter-spacing: 0.11em; text-transform: uppercase; color: var(--green); margin-bottom: 0.9mm; }
+.cap2 { margin-top: 1.3mm; margin-bottom: 0.7mm; }
+.inset { position: relative; width: 44mm; height: 44mm; border: 0.3mm solid var(--deep); overflow: hidden; background: #dfe9f0; }
+.inset img, .inset svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
+.legend { position: absolute; left: 49mm; top: 1.6mm; right: 2.5mm; }
+.legend .row { display: flex; align-items: flex-start; gap: 1.4mm; margin-bottom: 0.9mm; font: 500 5.5pt/1.2 'Manrope', sans-serif; color: var(--ink); }
+.legend .row b { font-weight: 800; }
+.legend .sw { flex: none; width: 3.1mm; height: 3.1mm; border-radius: 50%; border: 0.5mm solid; margin-top: 0.1mm; }
+.legend .sw.dash { border-style: dashed; }
+.legend .sw.dots { border: 0.4mm dotted #2f7d55; }
+.legend .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7mm 1.2mm; }
+.legend .cat { display: flex; align-items: center; gap: 1mm; font: 600 5.2pt/1.1 'Manrope', sans-serif; }
+.legend .dot { flex: none; width: 2.7mm; height: 2.7mm; border-radius: 50%; border: 0.3mm solid #ffffff; box-shadow: 0 0 0 0.15mm rgba(0,0,0,0.25); }
+.legend .sym { display: flex; align-items: center; gap: 1.2mm; margin-top: 1mm; font: 500 5.2pt/1.2 'Manrope', sans-serif; color: var(--soft); }
+.legend .sym i {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2.8mm; height: 2.8mm; border-radius: 0.7mm;
+  font: 800 4.6pt/1 'Manrope', sans-serif; font-style: normal; color: #ffffff;
+}
+.rules {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 11.6mm; background: var(--deep); color: #ffffff;
+  padding: 1.4mm 3mm 1mm;
+}
+.rules .rt { font: 800 4.9pt/1 'Manrope', sans-serif; letter-spacing: 0.13em; text-transform: uppercase; color: #8ed0aa; margin-bottom: 1mm; }
+.rules .rg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7mm 2.4mm; }
+.rules .ri { display: flex; align-items: center; gap: 1mm; font: 700 5.5pt/1.1 'Manrope', sans-serif; }
+.rules .ri svg { flex: none; width: 2.6mm; height: 2.6mm; }
+
+/* ---------- PROGRAMME: the official page (front of card 1) ---------- */
+.prog { display: flex; flex-direction: column; background: #ffffff; --amber: #eab308; }
+.hero {
+  position: relative; flex: none; height: 37mm; background: var(--deep); color: #ffffff;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+.hero .hbg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.hero .hw { position: absolute; left: 4mm; top: 3.6mm; height: 6.6mm; display: block; }
+.hero .hk { position: absolute; right: 4mm; top: 4.6mm; font: 500 5.4pt/1 'Plex', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); }
+.hero .ht { position: absolute; left: 3.6mm; top: 11.6mm; font: 700 33pt/1 'Jost', sans-serif; letter-spacing: 0.05em; }
+.hero .hd {
+  position: absolute; left: 4mm; top: 25.4mm; padding: 0.9mm 2.6mm 0.8mm; background: var(--amber); color: #0f3225;
+  font: 700 9.4pt/1 'Jost', sans-serif; letter-spacing: 0.07em; transform: skewX(-9deg);
+}
+.hero .hs { position: absolute; right: 4mm; top: 8.4mm; font: 500 5.2pt/1 'Plex', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #8ed0aa; }
+/* which travel group this flyer is for: a white tab at the bottom right, slanted like the date ribbon */
+.hero .hg {
+  position: absolute; right: 4.6mm; top: 24.2mm; padding: 0.9mm 2.4mm 0.8mm; background: #ffffff; color: #0f3225;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.6mm; transform: skewX(-9deg);
+}
+.hero .hg b { font: 700 11pt/1 'Jost', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.hero .hg span { font: 600 5pt/1 'Plex', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #1f6b45; }
+
+.bkb {
+  position: relative; z-index: 2; flex: none; margin: -3.6mm -3mm 0; width: 101mm; padding: 1.5mm 7mm 1.5mm;
+  background: var(--amber); color: #142019; transform: rotate(-1.2deg); transform-origin: 50% 50%;
+  display: flex; align-items: center; gap: 1.8mm;
+}
+.bkb svg { flex: none; width: 4.6mm; height: 4.6mm; }
+.bkb b { font: 700 9pt/1 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+.bkb span { font: 600 6.6pt/1 'Manrope', sans-serif; }
+
+.days { flex: 1; display: flex; flex-direction: column; gap: 1.9mm; padding: 3.2mm 4mm 2.4mm; }
+.day {
+  --clr: var(--green); --txt: #166534; --bgk: #f1f7f3; --brk: #cfe0d4;
+  display: flex; flex: 1 1 auto; border-radius: 2mm; overflow: hidden; background: var(--bgk); border: 0.3mm solid var(--brk);
+}
+.day.travel { --clr: #0f3225; --txt: #0f3225; }
+.day.official { --clr: #16a34a; --txt: #166534; }
+.day.libre { --clr: #ea580c; --txt: #c2410c; --bgk: #fff4ec; --brk: #f6d3ba; }
+.day.tbd { --clr: #6b7280; --txt: #4b5563; --bgk: #f6f6f6; --brk: #b9bcc2; border-style: dashed; }
+.day .date {
+  flex: none; width: 13mm; background: var(--clr); color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: 'Jost', sans-serif; line-height: 1; padding: 1mm 0;
+}
+.day .date .dow, .day .date .mon { font: 600 5.2pt/1 'Jost', sans-serif; letter-spacing: 0.16em; }
+.day .date .dn { font: 700 24pt/1 'Jost', sans-serif; margin: 0.4mm 0 0.5mm; }
+.day .body { flex: 1; min-width: 0; padding: 1.5mm 2.3mm 1.4mm; display: flex; flex-direction: column; justify-content: center; }
+.dh { display: flex; align-items: center; gap: 1.6mm; margin-bottom: 0.7mm; }
+.dh .jn { flex: none; font: 600 4.8pt/1 'Plex', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; background: var(--clr); padding: 0.55mm 1.2mm; border-radius: 0.8mm; transform: skewX(-9deg); }
+.dh .dt { font: 700 10pt/1 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; color: #142019; }
+.dh .bkc { margin-left: auto; flex: none; display: inline-flex; align-items: center; justify-content: center; width: 4.8mm; height: 4.8mm; border-radius: 50%; background: var(--amber); color: #142019; }
+.dh .bkc svg { width: 3mm; height: 3mm; }
+.it { display: flex; align-items: flex-start; gap: 1.5mm; padding: 0.55mm 0; font: 600 7.1pt/1.22 'Manrope', sans-serif; color: #142019; }
+.it .tm { flex: none; width: 11mm; font: 700 6.6pt/1.3 'Plex', monospace; color: var(--txt); }
+.it > svg { flex: none; width: 3.7mm; height: 3.7mm; margin-top: 0.2mm; color: var(--clr); }
+.it.free > svg, .it.free .tm { color: #ea580c; }
+.it .lb { display: inline-block; font: 800 4.6pt/1 'Manrope', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.08em; color: #ffffff; background: #ea580c; border-radius: 3mm; padding: 0.45mm 1.3mm; margin-right: 1.2mm; vertical-align: 0.25mm; }
+.it .fl { display: inline-block; width: 15mm; border-bottom: 0.3mm solid #142019; height: 3mm; vertical-align: bottom; margin: 0 1mm; }
+.it .af { font: 500 5.4pt/1 'Manrope', sans-serif; color: var(--soft); }
+
+/* a flight, drawn as a boarding pass */
+.bp {
+  position: relative; display: flex; align-items: center; justify-content: space-between; margin: 0.9mm 0 0;
+  background: #ffffff; border: 0.3mm solid var(--brk); border-radius: 1.6mm; padding: 0.9mm 3.6mm;
+}
+.bp::before, .bp::after { content: ''; position: absolute; top: 50%; width: 2.4mm; height: 2.4mm; border-radius: 50%; background: var(--bgk); border: 0.3mm solid var(--brk); transform: translateY(-50%); }
+.bp::before { left: -1.3mm; }
+.bp::after { right: -1.3mm; }
+.bpc { display: flex; flex-direction: column; }
+.bpc.r { align-items: flex-end; }
+.bpc .cy { font: 700 5pt/1 'Plex', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.bpc .tt { font: 700 14pt/1.05 'Jost', sans-serif; color: var(--clr); }
+.bpm { flex: 1; display: flex; align-items: center; gap: 1mm; margin: 0 2.4mm; }
+.bpm i { flex: 1; border-top: 0.35mm dashed var(--clr); opacity: 0.6; }
+.bpm .pl { flex: none; width: 4.6mm; height: 4.6mm; color: var(--clr); transform: rotate(90deg); }
+.bpn { text-align: right; padding-right: 1mm; font: 500 4.8pt/1.25 'Manrope', sans-serif; color: var(--soft); margin: 0.5mm 0 0.2mm; }
+.bpn span { display: block; }
+
+.pfoot { flex: none; margin-top: auto; background: var(--deep); color: #ffffff; padding: 1.8mm 4mm 2.2mm; display: flex; flex-direction: column; gap: 1.1mm; }
+.pfoot .lgs { display: flex; flex-wrap: wrap; gap: 0.4mm 2.6mm; font: 600 5pt/1 'Manrope', sans-serif; color: #cfe8d8; }
+.pfoot .lg { display: inline-flex; align-items: center; gap: 0.9mm; }
+.pfoot .lg i { width: 2.2mm; height: 2.2mm; border-radius: 0.5mm; background: #16a34a; }
+.pfoot .lg.travel i { background: #2f7d55; box-shadow: 0 0 0 0.25mm #8ed0aa; }
+.pfoot .lg.libre i { background: #ea580c; }
+.pfoot .lg.tbd i { background: #6b7280; }
+.pfoot .pr { display: flex; align-items: center; gap: 1.2mm; font: 700 6.4pt/1.1 'Manrope', sans-serif; }
+.pfoot .pr svg { width: 3.2mm; height: 3.2mm; color: #8ed0aa; }
+.pfoot .pr span { color: #8ed0aa; }
+
+/* ---------- BACK FACES: texts and checklists ---------- */
+.back {
+  padding: 3.6mm 4mm 2.8mm; display: flex; flex-direction: column; gap: 1.8mm;
+  font: 500 6.2pt/1.2 'Manrope', sans-serif; color: var(--ink);
+}
+.back h2 {
+  display: flex; align-items: center; gap: 1.4mm; margin: 0 0 0.9mm;
+  font: 800 5.4pt/1 'Manrope', sans-serif; letter-spacing: 0.13em; text-transform: uppercase; color: var(--green);
+}
+.back h2::after { content: ''; flex: 1; height: 0.25mm; background: var(--line); }
+.back h2 svg { width: 2.7mm; height: 2.7mm; flex: none; }
+.bhead { display: flex; align-items: center; justify-content: space-between; border-bottom: 0.45mm solid var(--deep); padding-bottom: 1.3mm; }
+.bhead img { height: 6.4mm; display: block; }
+.bhead .t { text-align: right; }
+.bhead .t b { display: block; font: 600 11.5pt/1 'Jost', sans-serif; letter-spacing: 0.1em; color: var(--deep); }
+.bhead .t span { display: block; margin-top: 0.8mm; font: 500 5pt/1 'Plex', monospace; letter-spacing: 0.08em; color: var(--soft); text-transform: uppercase; }
+
+.urg { border: 0.5mm solid var(--red); border-radius: 1.6mm; padding: 1.4mm 2.4mm 1.5mm; }
+.urg .top { display: flex; align-items: center; gap: 2.4mm; }
+.urg .n { font: 700 24pt/0.9 'Jost', sans-serif; color: var(--red); }
+.urg .l { font: 700 5.6pt/1.2 'Manrope', sans-serif; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; }
+.urg .taxi { flex: 1; border-left: 0.3mm solid #f0b4b4; padding-left: 2.4mm; }
+.urg .taxi .k { font: 800 4.9pt/1 'Manrope', sans-serif; letter-spacing: 0.1em; color: var(--soft); text-transform: uppercase; }
+.urg .taxi .tr { font: 700 8.4pt/1.1 'Jost', sans-serif; color: var(--ink); margin: 0.6mm 0 0.4mm; }
+.urg .taxi .ad { font: 600 5.8pt/1.2 'Manrope', sans-serif; color: var(--ink); }
+.urg .staff { margin-top: 1.2mm; display: flex; flex-wrap: wrap; gap: 0.5mm 2.4mm; font: 600 5.9pt/1.2 'Manrope', sans-serif; }
+.urg .staff span { white-space: nowrap; }
+.urg .staff i { display: inline-block; min-width: 13mm; border-bottom: 0.25mm solid #888888; height: 2.7mm; vertical-align: bottom; margin-left: 0.6mm; }
+.urg .staff u { text-decoration: none; font-weight: 800; }
+
+.cb { flex: none; width: 2.5mm; height: 2.5mm; border: 0.32mm solid #4c6d59; border-radius: 0.5mm; background: #ffffff; }
+.num {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; width: 3.1mm; height: 3.1mm; border-radius: 50%;
+  color: #ffffff; font: 800 4.9pt/1 'Manrope', sans-serif;
+}
+.num.sq { border-radius: 0.8mm; }
+.num.dia { background: none; }
+.num.dia i { display: block; width: 2.3mm; height: 2.3mm; background: #0891b2; border-radius: 0.4mm; transform: rotate(45deg); }
+.num.hotel { background: var(--deep); }
+.num.zo { box-shadow: 0 0 0 0.3mm #ffffff, 0 0 0 0.72mm var(--orange); }
+.num.zs { box-shadow: 0 0 0 0.3mm #ffffff, 0 0 0 0.72mm var(--red); }
+
+/* a plan = a list of stops with a box to tick */
+.ph { display: flex; align-items: center; gap: 1.3mm; margin-bottom: 0.6mm; }
+.pb { flex: none; width: 3.8mm; height: 3.8mm; border-radius: 1mm; background: var(--green); color: #ffffff; display: flex; align-items: center; justify-content: center; font: 700 7.4pt/1 'Jost', sans-serif; }
+.pn { min-width: 0; }
+.pt { font: 600 7.4pt/1.05 'Jost', sans-serif; color: var(--deep); }
+.pm { font: 500 5.3pt/1.1 'Manrope', sans-serif; color: var(--soft); }
+.pw { display: flex; align-items: center; gap: 0.8mm; font: 600 5.3pt/1.15 'Manrope', sans-serif; color: #92400e; margin: 0 0 0.5mm; }
+.pw .wi { flex: none; width: 2.3mm; height: 2.3mm; }
+.stops { column-count: 2; column-gap: 2.4mm; }
+.st { display: flex; align-items: center; gap: 1mm; break-inside: avoid; margin-bottom: 0.25mm; min-height: 3.4mm; }
+.st .tm { flex: none; font: 500 5.5pt/1 'Plex', monospace; color: var(--soft); min-width: 6.5mm; }
+.st .nm { font: 600 6.4pt/1.1 'Manrope', sans-serif; }
+.st .nt { display: block; font: 500 5.2pt/1.1 'Manrope', sans-serif; color: var(--soft); }
+
+/* free-time face */
+.free .intro { display: flex; align-items: flex-start; gap: 1.8mm; background: var(--pale); border-radius: 1.6mm; padding: 1.5mm 2.2mm; font: 500 6pt/1.3 'Manrope', sans-serif; color: var(--deep); }
+.free .intro svg { flex: none; width: 3.3mm; height: 3.3mm; margin-top: 0.15mm; }
+.free .groups { display: flex; flex-direction: column; gap: 2.1mm; }
+.dgh { display: flex; align-items: center; gap: 1.8mm; margin-bottom: 0.9mm; }
+.dchip { flex: none; width: 8mm; height: 8mm; border-radius: 1.6mm; background: var(--orange); color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.dchip small { font: 600 4.6pt/1 'Jost', sans-serif; letter-spacing: 0.14em; }
+.dchip b { font: 700 11.5pt/1 'Jost', sans-serif; }
+.dgn { min-width: 0; }
+.dgt { font: 700 9pt/1.05 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; color: var(--deep); }
+.dgs { font: 500 5.6pt/1.15 'Manrope', sans-serif; color: var(--soft); }
+.pl + .pl { margin-top: 1.5mm; padding-top: 1.3mm; border-top: 0.2mm dashed var(--line); }
+.pm.solo { margin: 0 0 0.6mm; }
+.dg.tbd .dchip { background: #6b7280; }
+.wl i { display: block; border-bottom: 0.25mm dotted #8a8a8a; height: 3.8mm; }
+/* ruled notes: fills what the plans leave free (never less than 10 mm), the extra lines are clipped */
+.free .nbox { flex: 1 1 0; min-height: 10mm; display: flex; flex-direction: column; }
+.free .nbox b { flex: none; font: 800 5pt/1 'Manrope', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); margin-bottom: 0.3mm; }
+.free .nbox .nl { flex: 1 1 0; min-height: 0; overflow: hidden; }
+.free .nbox .nl i { display: block; height: 5.4mm; border-bottom: 0.25mm solid #a3a3a3; }
+.free .foot { margin-top: auto; }
+.free .foot .rr { display: flex; flex-wrap: wrap; gap: 0.5mm 2.6mm; font: 700 5.7pt/1.2 'Manrope', sans-serif; color: var(--deep); }
+.free .foot .rr span::before { content: ''; display: inline-block; width: 1.2mm; height: 1.2mm; border-radius: 50%; background: var(--green); margin-right: 1mm; vertical-align: 0.1mm; }
+
+/* guide face (back of the map) */
+.sug2 { column-count: 2; column-gap: 3mm; }
+.sg2 { display: flex; align-items: center; gap: 1.3mm; break-inside: avoid; margin-bottom: 0.4mm; min-height: 3.6mm; }
+.sg2 .nm { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; font: 600 6.8pt/1.1 'Manrope', sans-serif; }
+.sg2 .pr { font: 500 5.3pt/1 'Manrope', sans-serif; color: var(--soft); white-space: nowrap; }
+.keynote { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3mm 2mm; font: 500 5.1pt/1.2 'Manrope', sans-serif; color: var(--soft); margin-top: 0.6mm; }
+.keynote .k { display: flex; align-items: center; gap: 0.7mm; }
+.keynote i { display: block; width: 1.9mm; height: 1.9mm; border-radius: 50%; background: #ffffff; }
+.keynote i.zo { border: 0.5mm solid var(--orange); }
+.keynote i.zs { border: 0.5mm solid var(--red); }
+.scams { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9mm 3mm; }
+.scams li { font: 500 5.7pt/1.25 'Manrope', sans-serif; }
+.scams li b { font-weight: 800; color: #92400e; }
+.tips { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6mm 2.4mm; }
+.tips li { display: flex; align-items: center; gap: 1mm; font: 500 5.8pt/1.2 'Manrope', sans-serif; }
+.tips li::before { content: ''; flex: none; width: 1.2mm; height: 1.2mm; border-radius: 50%; background: var(--green); }
+.phr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8mm 1.8mm; }
+.phr div { font: 500 5.4pt/1.15 'Manrope', sans-serif; color: var(--soft); }
+.phr b { display: block; font: 700 6.4pt/1.15 'Jost', sans-serif; color: var(--deep); }
+
+.foot { display: flex; align-items: center; gap: 2.4mm; margin-top: auto; padding-top: 0.8mm; border-top: 0.45mm solid var(--deep); }
+.foot .qr { flex: none; width: 10.4mm; height: 10.4mm; }
+.foot .qr svg { width: 100%; height: 100%; display: block; }
+.foot .tx { flex: 1; }
+.foot .tx b { display: block; font: 600 7.4pt/1.1 'Jost', sans-serif; color: var(--deep); }
+.foot .tx span { display: block; font: 500 5.3pt/1.25 'Manrope', sans-serif; color: var(--soft); margin-top: 0.4mm; }
+.foot .notes { flex: 0 0 24mm; font: 800 5pt/1 'Manrope', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
+.foot .notes i { display: block; border-bottom: 0.25mm solid #999999; height: 3.2mm; }
+
+.back.info { gap: 2.6mm; }
+.info .scams li { font-size: 6pt; }
+.info .tips li { font-size: 6.1pt; }
+.info .phr div { font-size: 5.7pt; }
+.info .phr b { font-size: 6.8pt; }
+.fillbox { display: grid; gap: 1.6mm; font: 600 6.4pt/1.2 'Manrope', sans-serif; color: var(--deep); }
+.fillbox .row { display: flex; align-items: flex-end; gap: 1.4mm; }
+.fillbox i { flex: 1; border-bottom: 0.25mm solid #888888; height: 3.6mm; min-width: 7mm; }
+.fillbox i.s { flex: 0 0 14mm; }

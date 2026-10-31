@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Ultimate Connect",
+    "slug": "ultimate-connect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#F6FAF7",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ultimatehealthbeauty.connect"
+    },
+    "android": {
+      "package": "com.ultimatehealthbeauty.connect",
+      "adaptiveIcon": {
+        "backgroundColor": "#0F3225",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "lang": "fr",
+      "name": "Ultimate Connect",
+      "shortName": "Connect",
+      "description": "L'application du voyage Ultimate Health & Beauty : programme, chat, guide et alertes.",
+      "themeColor": "#0F3225",
+      "backgroundColor": "#0F3225"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#F6FAF7"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Ultimate Connect utilise votre position uniquement si vous activez le partage avec le staff ou si vous envoyez une alerte d'aide."
+        }
+      ],
+      "expo-localization"
+    ]
+  }
+}

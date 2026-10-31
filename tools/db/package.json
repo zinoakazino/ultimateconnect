@@ -1,0 +1,18 @@
+{
+  "name": "ultimate-connect-db-tools",
+  "private": true,
+  "type": "module",
+  "description": "Tests the Supabase schema (supabase/*.sql) on a real Postgres engine (PGlite) and runs a local Supabase look-alike for trying the app without internet",
+  "scripts": {
+    "test": "node rls.test.mjs && node api.test.mjs && node env.test.mjs",
+    "test:rls": "node rls.test.mjs",
+    "test:api": "node api.test.mjs",
+    "test:env": "node env.test.mjs",
+    "live": "node live-check.mjs",
+    "mock": "node mock-supabase.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "ws": "^8.18.0"
+  }
+}

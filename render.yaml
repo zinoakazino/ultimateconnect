@@ -1,0 +1,35 @@
+# Render Blueprint: the web app as a free Static Site (it never sleeps, no card needed).
+# Dashboard route: New + > Static Site > pick the GitHub repo, then use the same values as below.
+services:
+  - type: web
+    name: ultimate-connect
+    runtime: static
+    buildCommand: npm ci && npm run build:web
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+      # Public values from Supabase > Project Settings > API (Project URL and the "anon" / publishable key).
+      - key: EXPO_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: EXPO_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+    # Single-page app: every address opens index.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    # A new deploy must show up right away: never keep the app shell, the service worker or the manifest.
+    headers:
+      - path: /
+        name: Cache-Control
+        value: no-cache
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache
+      - path: /manifest.json
+        name: Cache-Control
+        value: no-cache

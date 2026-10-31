@@ -1,0 +1,16 @@
+{
+  "name": "ultimate-connect-flyer",
+  "private": true,
+  "type": "commonjs",
+  "description": "Builds the printable Istanbul flyers (programme + free time, map + guide) from src/features/istanbul/istanbul-data.json",
+  "scripts": {
+    "build": "node build-flyer.js",
+    "build:noqr": "node build-flyer.js --no-qr",
+    "build:faces": "node build-flyer.js --faces-only"
+  },
+  "dependencies": {
+    "maplibre-gl": "^4.7.1",
+    "puppeteer-core": "^23.11.1",
+    "qrcode": "^1.5.4"
+  }
+}
